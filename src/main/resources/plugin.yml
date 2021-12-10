@@ -1,0 +1,17 @@
+name: Insight
+version: '${version}'
+main: cc.akashic.insight.Insight
+api-version: 1.18
+authors: [ Myth ]
+description: A Spigot plugin to display Minecraft event text in console.
+website: mc.akashic.cc
+
+
+commands:
+  insight:
+    description: Commands of Insight.
+    usage: |
+      /<command> stat playoneminute
+      /<command> stat deaths
+      /<command> stat mobkills
+    permission: insight.insight
