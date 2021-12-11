@@ -17,7 +17,7 @@ public class CommandShareItems extends CommandXray {
             Inventory inventory = player.getInventory();
 
             Bukkit.broadcastMessage(ChatColor.GREEN + "=========================");
-            Bukkit.broadcastMessage("Player " + player.getName() + " shared his inventory!");
+            Bukkit.broadcastMessage(ChatColor.AQUA + "Player " + player.getName() + " shared his inventory!");
 
             Collection<? extends Player> players = Bukkit.getOnlinePlayers();
             for (Player playerToSend : players) {

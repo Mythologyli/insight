@@ -20,8 +20,8 @@ commands:
   xray:
     description: Command of Insight Xray.
     usage: |
-      /<command> inventory
-      /<command> endchest
+      /<command> <player> inventory
+      /<command> <player> endchest
     permission: insight.xray
 
   shareitems:
