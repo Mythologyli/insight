@@ -50,9 +50,15 @@ public class CommandInsight implements CommandExecutor {
                         }
 
                         break;
+
+                    default:
+                        return false;
                 }
 
                 break;
+
+            default:
+                return false;
         }
 
         return true;
