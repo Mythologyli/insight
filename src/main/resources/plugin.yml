@@ -2,6 +2,7 @@ name: Insight
 version: '${version}'
 main: cc.akashic.insight.Insight
 api-version: 1.18
+depend: [ LocaleLib ]
 authors: [ Myth ]
 description: A Spigot plugin to display Minecraft event text in console.
 website: mc.akashic.cc
@@ -15,3 +16,27 @@ commands:
       /<command> stat deaths
       /<command> stat mobkills
     permission: insight.insight
+
+  xray:
+    description: Command of Insight Xray.
+    usage: |
+      /<command>
+    permission: insight.xray
+
+  shareitems:
+    description: Command of Insight ShareItems.
+    usage: |
+      /<command>
+    permission: insight.shareitems
+
+
+permissions:
+  insight.insight:
+    description: Allows commands of Insight.
+    default: op
+  insight.xray:
+    description: Allows commands of Xray.
+    default: op
+  insight.shareitems:
+    description: Allows commands of ShareItems.
+    default: true

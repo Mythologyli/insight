@@ -12,6 +12,9 @@ repositories {
         url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
     }
     maven {
+        url = 'https://jitpack.io'
+    }
+    maven {
         name = 'sonatype'
         url = 'https://oss.sonatype.org/content/groups/public/'
     }
@@ -19,6 +22,7 @@ repositories {
 
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.18-R0.1-SNAPSHOT'
+    compileOnly 'com.github.PikaMug:LocaleLib:2.4'
 }
 
 def targetJavaVersion = 8
