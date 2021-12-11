@@ -22,7 +22,7 @@ public class CommandShareItems implements CommandExecutor {
             Player player = (Player) sender;
 
             Bukkit.broadcastMessage(ChatColor.GREEN + "=========================");
-            Bukkit.broadcastMessage("Player " + player.getName() + "shared his inventory.");
+            Bukkit.broadcastMessage("Player " + player.getName() + " shared his inventory.");
 
             ItemStack[] playerItems = player.getInventory().getContents();
             boolean isInventoryEmpty = true;
