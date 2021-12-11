@@ -12,3 +12,9 @@ A Spigot plugin designed for Akashic Minecraft Server.
   + Play time
   + Death times
   + Kill mobs times
+
++ Xray
+  + Player's inventory
+  + Player's EnderChest
+
++ ShareItems
