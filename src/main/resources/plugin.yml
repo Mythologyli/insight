@@ -21,7 +21,7 @@ commands:
     description: Command of Insight Xray.
     usage: |
       /<command> <player> inventory
-      /<command> <player> endchest
+      /<command> <player> enderchest
       /<command> <player> hand
     permission: insight.xray
 
