@@ -16,5 +16,8 @@ A Spigot plugin designed for Akashic Minecraft Server.
 + Xray
   + Player's inventory
   + Player's EnderChest
+  + Player's hand
 
 + ShareItems
+  + Player's inventory
+  + Player's hand
