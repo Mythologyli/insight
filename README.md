@@ -1,10 +1,10 @@
 # insight
 
-A Spigot plugin designed for Akashic Minecraft Server.
+A Spigot plugin designed for [Akashic Minecraft Server](https://mc.akashic.cc).
 
 ## Feature
 
-+ Event broadcast
++ Event broadcast: broadcast events for [Prism](https://github.com/Mythologyli/Prism)
   + Death event
   + Raid event
 
@@ -13,11 +13,11 @@ A Spigot plugin designed for Akashic Minecraft Server.
   + Death times
   + Kill mobs times
 
-+ Xray
++ Xray: give operators ability to check a player's inventory
   + Player's inventory
   + Player's EnderChest
   + Player's hand
 
-+ ShareItems
++ ShareItems: share inventory in public channel
   + Player's inventory
   + Player's hand
