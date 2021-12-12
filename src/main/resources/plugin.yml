@@ -29,6 +29,7 @@ commands:
     description: Command of Insight ShareItems.
     usage: |
       /<command>
+      /<command> hand
     permission: insight.shareitems
 
 

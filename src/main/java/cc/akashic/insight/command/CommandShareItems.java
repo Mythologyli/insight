@@ -16,10 +16,33 @@ public final class CommandShareItems implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            ItemStack[] items = player.getInventory().getContents();
+            ItemStack[] items;
 
-            Bukkit.broadcastMessage(ChatColor.GREEN + "=========================");
-            Bukkit.broadcastMessage(ChatColor.AQUA + "Player " + player.getName() + " shared his inventory!");
+            if (args.length == 0) {
+                items = player.getInventory().getContents();
+
+                Bukkit.broadcastMessage(ChatColor.GREEN + "=========================");
+                Bukkit.broadcastMessage(ChatColor.AQUA + "Player " + player.getName() + " shared his inventory!");
+            } else {
+                if (args.length > 1) {
+                    return false;
+                }
+
+                switch (args[0]) {
+                    case "hand":
+                        items = new ItemStack[1];
+                        items[0] = player.getInventory().getItemInMainHand();
+
+                        Bukkit.broadcastMessage(ChatColor.GREEN + "=========================");
+                        Bukkit.broadcastMessage(ChatColor.AQUA + "Player " + player.getName() + " shared his items in hand!");
+
+                        break;
+
+                    default:
+                        sender.sendMessage("Error input!");
+                        return false;
+                }
+            }
 
             ShowItems.printToConsole(items);
 
