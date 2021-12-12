@@ -25,27 +25,26 @@ public final class CommandXray implements CommandExecutor {
         }
 
         ItemStack[] items;
+        int inventorySize;
 
         switch (args[1]) {
-            case "inventory":
+            case "inventory" -> {
                 items = player.getInventory().getContents();
-
-                break;
-
-            case "enderchest":
+                inventorySize = 45;
+            }
+            case "enderchest" -> {
                 items = player.getEnderChest().getContents();
-
-                break;
-
-            case "hand":
+                inventorySize = 27;
+            }
+            case "hand" -> {
                 items = new ItemStack[1];
                 items[0] = player.getInventory().getItemInMainHand();
-
-                break;
-
-            default:
+                inventorySize = 9;
+            }
+            default -> {
                 sender.sendMessage("Error input!");
                 return false;
+            }
         }
 
         sender.sendMessage(ChatColor.GREEN + "=========================");
@@ -53,7 +52,7 @@ public final class CommandXray implements CommandExecutor {
 
         if (sender instanceof Player) {
             sender.sendMessage(ChatColor.YELLOW + "Open a Xray result box.");
-            ShowItems.guiToPlayer(items, (Player) sender,  "Xray of " + playerName + "'s Items");
+            ShowItems.guiToPlayer(items, (Player) sender, inventorySize, "Xray of " + playerName + "'s Items");
         } else {
             ShowItems.printToConsole(items);
         }

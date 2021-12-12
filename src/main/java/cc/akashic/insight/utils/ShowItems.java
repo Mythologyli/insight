@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -78,8 +79,8 @@ public final class ShowItems {
         }
     }
 
-    public static void guiToPlayer(ItemStack[] items, Player playerToSend, String title) {
-        Inventory inventory = Bukkit.createInventory(null, 54, title);
+    public static void guiToPlayer(ItemStack[] items, Player playerToSend, int size, String title) {
+        Inventory inventory = Bukkit.createInventory(null, size, title);
 
         for (ItemStack item : items) {
             if (item != null) {
@@ -94,6 +95,15 @@ public final class ShowItems {
 
         protectedInventoryList.add(inventory);
         playerToSend.openInventory(inventory);
+
+        Bukkit.getScheduler().scheduleSyncDelayedTask(Insight.instance, () -> {
+            InventoryView playerOpenInventory = playerToSend.getOpenInventory();
+            if (playerOpenInventory.getTopInventory() == inventory || playerOpenInventory.getTopInventory() == inventory) {
+                playerToSend.closeInventory();
+            }
+
+            protectedInventoryList.remove(inventory);
+        }, 120L);
     }
 
     public static final class InventoryClickEventListener implements Listener {

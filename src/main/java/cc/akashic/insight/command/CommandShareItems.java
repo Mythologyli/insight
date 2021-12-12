@@ -14,8 +14,7 @@ import java.util.Collection;
 public final class CommandShareItems implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (sender instanceof Player) {
-            Player player = (Player) sender;
+        if (sender instanceof Player player) {
             ItemStack[] items;
 
             if (args.length == 0) {
@@ -29,18 +28,16 @@ public final class CommandShareItems implements CommandExecutor {
                 }
 
                 switch (args[0]) {
-                    case "hand":
+                    case "hand" -> {
                         items = new ItemStack[1];
                         items[0] = player.getInventory().getItemInMainHand();
-
                         Bukkit.broadcastMessage(ChatColor.GREEN + "=========================");
                         Bukkit.broadcastMessage(ChatColor.AQUA + "Player " + player.getName() + " shared his items in hand!");
-
-                        break;
-
-                    default:
+                    }
+                    default -> {
                         sender.sendMessage("Error input!");
                         return false;
+                    }
                 }
             }
 
@@ -52,7 +49,6 @@ public final class CommandShareItems implements CommandExecutor {
             }
 
             Bukkit.broadcastMessage(ChatColor.GREEN + "=========================");
-
         } else {
             sender.sendMessage("This command can only run in game!");
         }
