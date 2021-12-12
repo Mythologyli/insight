@@ -2,7 +2,7 @@ package cc.akashic.insight;
 
 import java.util.logging.Logger;
 
-public class Log {
+public final class Log {
     private static Logger log;
 
     public static void setLogger(Logger logger) {
