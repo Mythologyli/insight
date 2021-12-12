@@ -22,6 +22,7 @@ commands:
     usage: |
       /<command> <player> inventory
       /<command> <player> endchest
+      /<command> <player> hand
     permission: insight.xray
 
   shareitems:

@@ -10,20 +10,22 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Map;
 
 public class CommandXray implements CommandExecutor {
-    protected void displayInventory(Inventory inventory) {
-        ItemStack[] items = inventory.getContents();
-        boolean isInventoryEmpty = true;
+    protected void printItems(ItemStack[] items) {
+        boolean isEmpty = true;
 
         for (ItemStack item : items) {
             if (item != null) {
-                isInventoryEmpty = false;
                 Material material = item.getType();
+                if (material == Material.AIR) {
+                    continue;
+                }
+
+                isEmpty = false;
                 Map<Enchantment, Integer> enchantments = item.getEnchantments();
 
                 StringBuilder message = new StringBuilder(ChatColor.YELLOW + material.toString() + ChatColor.RESET + " x" + item.getAmount() + " " + ChatColor.LIGHT_PURPLE);
@@ -36,21 +38,24 @@ public class CommandXray implements CommandExecutor {
             }
         }
 
-        if (isInventoryEmpty) {
+        if (isEmpty) {
             Bukkit.getLogger().info(ChatColor.YELLOW + "Nothing!");
         }
     }
 
-    protected void displayInventory(Inventory inventory, Player playerToSend) {
+    protected void printItems(ItemStack[] items, Player playerToSend) {
         LocaleManager localeManager = Insight.getLocaleManager();
 
-        ItemStack[] items = inventory.getContents();
-        boolean isInventoryEmpty = true;
+        boolean isEmpty = true;
 
         for (ItemStack item : items) {
             if (item != null) {
-                isInventoryEmpty = false;
                 Material material = item.getType();
+                if (material == Material.AIR) {
+                    continue;
+                }
+
+                isEmpty = false;
                 Map<Enchantment, Integer> enchantments = item.getEnchantments();
 
                 StringBuilder message = new StringBuilder(ChatColor.YELLOW + "<item>" + ChatColor.RESET + "    x" + item.getAmount() + "    " + ChatColor.LIGHT_PURPLE);
@@ -63,7 +68,7 @@ public class CommandXray implements CommandExecutor {
             }
         }
 
-        if (isInventoryEmpty) {
+        if (isEmpty) {
             playerToSend.sendMessage(ChatColor.YELLOW + "Nothing!");
         }
     }
@@ -82,16 +87,22 @@ public class CommandXray implements CommandExecutor {
             return true;
         }
 
-        Inventory inventory;
+        ItemStack[] items;
 
         switch (args[1]) {
             case "inventory":
-                inventory = player.getInventory();
+                items = player.getInventory().getContents();
 
                 break;
 
             case "enderchest":
-                inventory = player.getEnderChest();
+                items = player.getEnderChest().getContents();
+
+                break;
+
+            case "hand":
+                items = new ItemStack[1];
+                items[0] = player.getInventory().getItemInMainHand();
 
                 break;
 
@@ -104,9 +115,9 @@ public class CommandXray implements CommandExecutor {
         sender.sendMessage(ChatColor.AQUA + "Player: " + playerName);
 
         if (sender instanceof Player) {
-            displayInventory(inventory, (Player) sender);
+            printItems(items, (Player) sender);
         } else {
-            displayInventory(inventory);
+            printItems(items);
         }
 
         sender.sendMessage(ChatColor.GREEN + "=========================");
