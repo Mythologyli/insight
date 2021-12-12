@@ -25,28 +25,28 @@ public final class CommandInsight implements CommandExecutor {
 
                 switch (args[1]) {
                     case "playoneminute":
-                        for (OfflinePlayer offline_player : offlinePlayers) {
-                            int playOneMinute = offline_player.getStatistic(Statistic.PLAY_ONE_MINUTE);
+                        for (OfflinePlayer offlinePlayer : offlinePlayers) {
+                            int playOneMinute = offlinePlayer.getStatistic(Statistic.PLAY_ONE_MINUTE);
 
-                            Log.info("STAT|PLAY_ONE_MINUTE|" + offline_player.getName() + "|" + playOneMinute);
+                            Log.info("STAT|PLAY_ONE_MINUTE|" + offlinePlayer.getName() + "|" + playOneMinute);
                         }
 
                         break;
 
                     case "deaths":
-                        for (OfflinePlayer offline_player : offlinePlayers) {
-                            int deaths = offline_player.getStatistic(Statistic.DEATHS);
+                        for (OfflinePlayer offlinePlayer : offlinePlayers) {
+                            int deaths = offlinePlayer.getStatistic(Statistic.DEATHS);
 
-                            Log.info("STAT|DEATHS|" + offline_player.getName() + "|" + deaths);
+                            Log.info("STAT|DEATHS|" + offlinePlayer.getName() + "|" + deaths);
                         }
 
                         break;
 
                     case "mobkills":
-                        for (OfflinePlayer offline_player : offlinePlayers) {
-                            int mobKills = offline_player.getStatistic(Statistic.MOB_KILLS);
+                        for (OfflinePlayer offlinePlayer : offlinePlayers) {
+                            int mobKills = offlinePlayer.getStatistic(Statistic.MOB_KILLS);
 
-                            Log.info("STAT|MOB_KILLS|" + offline_player.getName() + "|" + mobKills);
+                            Log.info("STAT|MOB_KILLS|" + offlinePlayer.getName() + "|" + mobKills);
                         }
 
                         break;

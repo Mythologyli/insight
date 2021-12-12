@@ -52,7 +52,8 @@ public final class CommandXray implements CommandExecutor {
         sender.sendMessage(ChatColor.AQUA + "Player: " + playerName);
 
         if (sender instanceof Player) {
-            ShowItems.printToPlayer(items, (Player) sender);
+            sender.sendMessage(ChatColor.YELLOW + "Open a Xray result box.");
+            ShowItems.guiToPlayer(items, (Player) sender,  "Xray of " + playerName + "'s Items");
         } else {
             ShowItems.printToConsole(items);
         }

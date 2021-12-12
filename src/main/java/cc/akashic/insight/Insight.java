@@ -3,6 +3,7 @@ package cc.akashic.insight;
 import cc.akashic.insight.command.CommandInsight;
 import cc.akashic.insight.command.CommandShareItems;
 import cc.akashic.insight.command.CommandXray;
+import cc.akashic.insight.utils.ShowItems;
 import me.pikamug.localelib.LocaleLib;
 import me.pikamug.localelib.LocaleManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -24,7 +25,8 @@ public final class Insight extends JavaPlugin {
         this.getCommand("xray").setExecutor(new CommandXray());
         this.getCommand("shareitems").setExecutor(new CommandShareItems());
 
-        getServer().getPluginManager().registerEvents(new EventListener(), this);
+        getServer().getPluginManager().registerEvents(new EventBroadcastListener(), this);
+        getServer().getPluginManager().registerEvents(new ShowItems.InventoryClickEventListener(), this);
     }
 
     @Override

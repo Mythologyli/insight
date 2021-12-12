@@ -7,11 +7,19 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public final class ShowItems {
+    private static final ArrayList<Inventory> protectedInventoryList = new ArrayList<>();
+
     public static void printToConsole(ItemStack[] items) {
         boolean isEmpty = true;
 
@@ -67,6 +75,33 @@ public final class ShowItems {
 
         if (isEmpty) {
             playerToSend.sendMessage(ChatColor.YELLOW + "Nothing!");
+        }
+    }
+
+    public static void guiToPlayer(ItemStack[] items, Player playerToSend, String title) {
+        Inventory inventory = Bukkit.createInventory(null, 54, title);
+
+        for (ItemStack item : items) {
+            if (item != null) {
+                Material material = item.getType();
+                if (material == Material.AIR) {
+                    continue;
+                }
+
+                inventory.addItem(item);
+            }
+        }
+
+        protectedInventoryList.add(inventory);
+        playerToSend.openInventory(inventory);
+    }
+
+    public static final class InventoryClickEventListener implements Listener {
+        @EventHandler
+        public void onInventoryClick(InventoryClickEvent event) {
+            if (protectedInventoryList.contains(event.getInventory())) {
+                event.setResult(Event.Result.DENY);
+            }
         }
     }
 }
