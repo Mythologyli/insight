@@ -18,7 +18,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.Map;
 
-public final class ShowItems {
+public final class ItemsViewer {
     private static final ArrayList<Inventory> protectedInventoryList = new ArrayList<>();
 
     public static void printToConsole(ItemStack[] items) {
@@ -79,7 +79,7 @@ public final class ShowItems {
         }
     }
 
-    public static void guiToPlayer(ItemStack[] items, Player playerToSend, int size, String title) {
+    public static void guiToPlayer(ItemStack[] items, Player playerToSend, int size, String title, long ticks) {
         Inventory inventory = Bukkit.createInventory(null, size, title);
 
         for (ItemStack item : items) {
@@ -103,7 +103,7 @@ public final class ShowItems {
             }
 
             protectedInventoryList.remove(inventory);
-        }, 120L);
+        }, ticks);
     }
 
     public static final class InventoryClickEventListener implements Listener {
