@@ -26,3 +26,6 @@ A Spigot plugin designed for [Akashic Minecraft Server](https://mc.akashic.cc).
 + ShareItems: share inventory in public channel
     + Player's inventory
     + Player's hand
+
++ AFK detect
+    + When a player is AFK, he will not be counted into not sleeping players.
