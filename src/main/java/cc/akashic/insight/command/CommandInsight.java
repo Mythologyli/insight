@@ -2,6 +2,7 @@ package cc.akashic.insight.command;
 
 import cc.akashic.insight.Log;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Statistic;
 import org.bukkit.command.Command;
@@ -24,35 +25,65 @@ public final class CommandInsight implements CommandExecutor {
                 }
 
                 switch (args[1]) {
-                    case "playoneminute":
+                    case "playoneminute" -> {
                         for (OfflinePlayer offlinePlayer : offlinePlayers) {
                             int playOneMinute = offlinePlayer.getStatistic(Statistic.PLAY_ONE_MINUTE);
 
                             Log.info("STAT|PLAY_ONE_MINUTE|" + offlinePlayer.getName() + "|" + playOneMinute);
                         }
+                    }
 
-                        break;
-
-                    case "deaths":
+                    case "deaths" -> {
                         for (OfflinePlayer offlinePlayer : offlinePlayers) {
                             int deaths = offlinePlayer.getStatistic(Statistic.DEATHS);
 
                             Log.info("STAT|DEATHS|" + offlinePlayer.getName() + "|" + deaths);
                         }
+                    }
 
-                        break;
-
-                    case "mobkills":
+                    case "mobkills" -> {
                         for (OfflinePlayer offlinePlayer : offlinePlayers) {
                             int mobKills = offlinePlayer.getStatistic(Statistic.MOB_KILLS);
 
                             Log.info("STAT|MOB_KILLS|" + offlinePlayer.getName() + "|" + mobKills);
                         }
+                    }
 
-                        break;
+                    case "minediamond" -> {
+                        for (OfflinePlayer offlinePlayer : offlinePlayers) {
+                            int mineDiamond = offlinePlayer.getStatistic(Statistic.MINE_BLOCK, Material.DIAMOND);
 
-                    default:
+                            Log.info("STAT|MINE_DIAMOND|" + offlinePlayer.getName() + "|" + mineDiamond);
+                        }
+                    }
+
+                    case "minenetherrack" -> {
+                        for (OfflinePlayer offlinePlayer : offlinePlayers) {
+                            int mineNetherrack = offlinePlayer.getStatistic(Statistic.MINE_BLOCK, Material.NETHERRACK);
+
+                            Log.info("STAT|MINE_NETHERRACK|" + offlinePlayer.getName() + "|" + mineNetherrack);
+                        }
+                    }
+
+                    case "minedeepslate" -> {
+                        for (OfflinePlayer offlinePlayer : offlinePlayers) {
+                            int mineDeepslate = offlinePlayer.getStatistic(Statistic.MINE_BLOCK, Material.DEEPSLATE);
+
+                            Log.info("STAT|MINE_DEEPSLATE|" + offlinePlayer.getName() + "|" + mineDeepslate);
+                        }
+                    }
+
+                    case "mineancientdebris" -> {
+                        for (OfflinePlayer offlinePlayer : offlinePlayers) {
+                            int mineAncientDebris = offlinePlayer.getStatistic(Statistic.MINE_BLOCK, Material.ANCIENT_DEBRIS);
+
+                            Log.info("STAT|MINE_ANCIENT_DEBRIS|" + offlinePlayer.getName() + "|" + mineAncientDebris);
+                        }
+                    }
+
+                    default -> {
                         return false;
+                    }
                 }
 
                 break;
