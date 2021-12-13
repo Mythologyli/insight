@@ -14,7 +14,7 @@ commands:
       /<command> stat playoneminute
       /<command> stat deaths
       /<command> stat mobkills
-      /<command> stat minediamond
+      /<command> stat pickupdiamond
       /<command> stat minenetherrack
       /<command> stat minedeepslate
       /<command> stat mineancientdebris

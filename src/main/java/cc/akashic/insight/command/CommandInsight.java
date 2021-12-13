@@ -49,11 +49,11 @@ public final class CommandInsight implements CommandExecutor {
                         }
                     }
 
-                    case "minediamond" -> {
+                    case "pickupdiamond" -> {
                         for (OfflinePlayer offlinePlayer : offlinePlayers) {
-                            int mineDiamond = offlinePlayer.getStatistic(Statistic.MINE_BLOCK, Material.DIAMOND);
+                            int pickUpDiamond = offlinePlayer.getStatistic(Statistic.PICKUP, Material.DIAMOND);
 
-                            Log.info("STAT|MINE_DIAMOND|" + offlinePlayer.getName() + "|" + mineDiamond);
+                            Log.info("STAT|PICKUP_DIAMOND|" + offlinePlayer.getName() + "|" + pickUpDiamond);
                         }
                     }
 
