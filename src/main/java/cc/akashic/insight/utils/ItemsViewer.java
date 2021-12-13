@@ -91,7 +91,7 @@ public final class ItemsViewer {
         }, ticks);
     }
 
-    public static final class InventoryClickEventListener implements Listener {
+    public static final class EventListener implements Listener {
         @EventHandler
         public void onInventoryClick(InventoryClickEvent event) {
             if (protectedInventoryList.contains(event.getInventory())) {

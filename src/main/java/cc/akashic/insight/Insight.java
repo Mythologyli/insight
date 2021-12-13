@@ -4,6 +4,8 @@ import cc.akashic.insight.command.CommandInsight;
 import cc.akashic.insight.command.CommandShareItems;
 import cc.akashic.insight.command.CommandXray;
 import cc.akashic.insight.utils.ItemsViewer;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Insight extends JavaPlugin {
@@ -16,12 +18,18 @@ public final class Insight extends JavaPlugin {
         Log.setLogger(getLogger());
         Log.info("Plugin start.");
 
+        AFK.createAFKTeam();
+
         this.getCommand("insight").setExecutor(new CommandInsight());
         this.getCommand("xray").setExecutor(new CommandXray());
         this.getCommand("shareitems").setExecutor(new CommandShareItems());
 
-        getServer().getPluginManager().registerEvents(new EventBroadcastListener(), this);
-        getServer().getPluginManager().registerEvents(new ItemsViewer.InventoryClickEventListener(), this);
+        PluginManager pluginManager = getServer().getPluginManager();
+        pluginManager.registerEvents(new EventBroadcastListener(), this);
+        pluginManager.registerEvents(new AFK.EventListener(), this);
+        pluginManager.registerEvents(new ItemsViewer.EventListener(), this);
+
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, AFK::task, 200, 1200);
     }
 
     @Override
