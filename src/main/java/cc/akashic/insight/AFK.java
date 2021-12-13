@@ -102,7 +102,7 @@ public final class AFK {
                 AFKPlayerNameList.add(playerName);
                 player.setSleepingIgnored(true);
 
-                Bukkit.broadcastMessage(ChatColor.YELLOW + playerName + " is away from keyboard now!");
+                Bukkit.broadcastMessage(ChatColor.YELLOW + playerName + " is away from keyboard!");
             }
         }
 
@@ -132,12 +132,12 @@ public final class AFK {
 
         @EventHandler(priority = EventPriority.LOWEST)
         public void onPlayerMove(PlayerMoveEvent event) {
-            setPlayerStateToActive(event.getPlayer(), ChatColor.YELLOW + event.getPlayer().getName() + " is back!");
+            setPlayerStateToActive(event.getPlayer(), ChatColor.YELLOW + event.getPlayer().getName() + " is back now!");
         }
 
         @EventHandler(priority = EventPriority.LOWEST)
         public void onPlayerInteract(PlayerInteractEvent event) {
-            setPlayerStateToActive(event.getPlayer(), ChatColor.YELLOW + event.getPlayer().getName() + " is back!");
+            setPlayerStateToActive(event.getPlayer(), ChatColor.YELLOW + event.getPlayer().getName() + " is back now!");
         }
     }
 }
