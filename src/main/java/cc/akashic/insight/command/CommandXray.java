@@ -46,7 +46,7 @@ public final class CommandXray implements CommandExecutor {
             }
         }
 
-        sender.sendMessage(org.bukkit.ChatColor.GREEN + "=========================");
+        sender.sendMessage(org.bukkit.ChatColor.GREEN + "-------------------------");
         sender.sendMessage(org.bukkit.ChatColor.AQUA + "Player: " + playerName);
 
         if (sender instanceof Player) {
@@ -56,7 +56,7 @@ public final class CommandXray implements CommandExecutor {
             ItemsViewer.printToConsole(items);
         }
 
-        sender.sendMessage(org.bukkit.ChatColor.GREEN + "=========================");
+        sender.sendMessage(org.bukkit.ChatColor.GREEN + "-------------------------");
 
         return true;
     }

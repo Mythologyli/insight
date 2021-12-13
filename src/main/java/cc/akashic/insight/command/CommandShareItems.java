@@ -16,8 +16,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public final class CommandShareItems implements CommandExecutor {
-    private final ArrayList<ItemStack[]> protectedItemStacksList = new ArrayList<>();
-    private final ArrayList<String> protectedRandomStringList = new ArrayList<>();
+    private static final ArrayList<ItemStack[]> protectedItemStacksList = new ArrayList<>();
+    private static final ArrayList<String> protectedRandomStringList = new ArrayList<>();
+
+    private static void createDelayedDeleteTask(ItemStack[] items, String commandRandomString) {
+        Bukkit.getScheduler().scheduleSyncDelayedTask(Insight.instance, () -> {
+            protectedItemStacksList.remove(items);
+            protectedRandomStringList.remove(commandRandomString);
+        }, 12000);
+    }
 
     private static void printShareText(String commandRandomString) {
         TextComponent textComponent = new TextComponent(net.md_5.bungee.api.ChatColor.GREEN + "[Click here]");
@@ -31,79 +38,74 @@ public final class CommandShareItems implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (sender instanceof Player player) {
-            ItemStack[] items;
+        if (!(sender instanceof Player player)) {
+            sender.sendMessage("This command can only run in game!");
 
-            if (args.length == 0) {
-                items = player.getInventory().getContents();
-                String commandRandomString = RandomString.getRandomString(8);
+            return true;
+        }
 
-                protectedItemStacksList.add(items);
-                protectedRandomStringList.add(commandRandomString);
+        ItemStack[] items; // Items to share/view.
 
-                Bukkit.getScheduler().scheduleSyncDelayedTask(Insight.instance, () -> {
-                    protectedItemStacksList.remove(items);
-                    protectedRandomStringList.remove(commandRandomString);
-                }, 12000L);
+        if (args.length == 0) { // No args means sharing the inventory of the sender.
+            items = player.getInventory().getContents();
+            String commandRandomString = RandomString.getRandomString(8); // Generate random string for /shareitems view ... command.
 
-                Bukkit.broadcastMessage(org.bukkit.ChatColor.GREEN + "=========================");
-                Bukkit.broadcastMessage(org.bukkit.ChatColor.AQUA + "Player " + player.getName() + " shared his inventory!");
+            // Add the items and random string into list.
+            protectedItemStacksList.add(items);
+            protectedRandomStringList.add(commandRandomString);
 
-                printShareText(commandRandomString);
-            } else {
-                switch (args[0]) {
-                    case "hand" -> {
-                        if (args.length > 1) {
-                            return false;
-                        }
+            createDelayedDeleteTask(items, commandRandomString); // Delete them 12000 ticks later. (10 min)
 
-                        items = new ItemStack[1];
-                        items[0] = player.getInventory().getItemInMainHand();
-                        String commandRandomString = RandomString.getRandomString(8);
+            // Send message to all players.
+            Bukkit.broadcastMessage(org.bukkit.ChatColor.AQUA + "Player " + org.bukkit.ChatColor.DARK_PURPLE + player.getName() + org.bukkit.ChatColor.AQUA + " shared his inventory!");
 
-                        protectedItemStacksList.add(items);
-                        protectedRandomStringList.add(commandRandomString);
-
-                        Bukkit.getScheduler().scheduleSyncDelayedTask(Insight.instance, () -> {
-                            protectedItemStacksList.remove(items);
-                            protectedRandomStringList.remove(commandRandomString);
-                        }, 12000L);
-
-                        Bukkit.broadcastMessage(org.bukkit.ChatColor.GREEN + "=========================");
-                        Bukkit.broadcastMessage(org.bukkit.ChatColor.AQUA + "Player " + player.getName() + " shared his items in hand!");
-
-                        printShareText(commandRandomString);
-                    }
-                    case "view" -> {
-                        if (args.length > 2) {
-                            return false;
-                        }
-
-                        int index = protectedRandomStringList.indexOf(args[1]);
-                        if (index == -1) {
-                            sender.sendMessage("Share has expired!");
-                            return true;
-                        }
-
-                        items = protectedItemStacksList.get(index);
-                        sender.sendMessage(org.bukkit.ChatColor.YELLOW + "Open a Shared Items box.");
-                        ItemsViewer.guiToPlayer(items, (Player) sender, 54, "Shared Items", 1200L);
-
-                        return true;
-                    }
-                    default -> {
-                        sender.sendMessage("Error input!");
+            printShareText(commandRandomString); // Send the clickable text.
+        } else {
+            switch (args[0]) {
+                case "hand" -> {
+                    if (args.length > 1) { // "/shareitems hand" means sharing the item in main hand of the sender.
                         return false;
                     }
+
+                    items = new ItemStack[1];
+                    items[0] = player.getInventory().getItemInMainHand();
+                    String commandRandomString = RandomString.getRandomString(8);
+
+                    protectedItemStacksList.add(items);
+                    protectedRandomStringList.add(commandRandomString);
+
+                    createDelayedDeleteTask(items, commandRandomString);
+
+                    Bukkit.broadcastMessage(org.bukkit.ChatColor.AQUA + "Player " + player.getName() + " shared his items in hand!");
+
+                    printShareText(commandRandomString);
+                }
+                case "view" -> {
+                    if (args.length != 2) { // "/shareitems view xxxxxxxx" means viewing a previous share. This command issued when a player clicked the clickable text.
+                        return false;
+                    }
+
+                    // Try to find the index of the items.
+                    int index = protectedRandomStringList.indexOf(args[1]);
+                    if (index == -1) {
+                        sender.sendMessage("Share has expired!"); // After 10 min, the items and random string will be removed from the list.
+                        return true;
+                    }
+
+                    // Get the items and use GUI to share.
+                    items = protectedItemStacksList.get(index);
+                    ItemsViewer.guiToPlayer(items, (Player) sender, 54, "Shared Items", 1200L);
+
+                    return true;
+                }
+                default -> {
+                    sender.sendMessage("Error input!");
+                    return false;
                 }
             }
-
-            ItemsViewer.printToConsole(items);
-
-            Bukkit.broadcastMessage(org.bukkit.ChatColor.GREEN + "=========================");
-        } else {
-            sender.sendMessage("This command can only run in game!");
         }
+
+        ItemsViewer.printToConsole(items);
 
         return true;
     }

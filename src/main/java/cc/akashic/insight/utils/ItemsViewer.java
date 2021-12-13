@@ -1,7 +1,6 @@
 package cc.akashic.insight.utils;
 
 import cc.akashic.insight.Insight;
-import me.pikamug.localelib.LocaleManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -21,6 +20,11 @@ import java.util.Map;
 public final class ItemsViewer {
     private static final ArrayList<Inventory> protectedInventoryList = new ArrayList<>();
 
+    /**
+     * Print the items to console.
+     *
+     * @param items items to print
+     */
     public static void printToConsole(ItemStack[] items) {
         boolean isEmpty = true;
 
@@ -49,36 +53,17 @@ public final class ItemsViewer {
         }
     }
 
-    public static void printToPlayer(ItemStack[] items, Player playerToSend) {
-        LocaleManager localeManager = Insight.getLocaleManager();
-
-        boolean isEmpty = true;
-
-        for (ItemStack item : items) {
-            if (item != null) {
-                Material material = item.getType();
-                if (material == Material.AIR) {
-                    continue;
-                }
-
-                isEmpty = false;
-                Map<Enchantment, Integer> enchantments = item.getEnchantments();
-
-                StringBuilder message = new StringBuilder(ChatColor.YELLOW + "<item>" + ChatColor.RESET + "    x" + item.getAmount() + "    " + ChatColor.LIGHT_PURPLE);
-
-                for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
-                    message.append("| <enchantment>").append("  ");
-                }
-
-                localeManager.sendMessage(playerToSend, message.toString(), material, (short) 0, enchantments);
-            }
-        }
-
-        if (isEmpty) {
-            playerToSend.sendMessage(ChatColor.YELLOW + "Nothing!");
-        }
-    }
-
+    /**
+     * Open a GUI for player to view the items.
+     * The click event of the GUI is disabled.
+     * Forced to close after ticks.
+     *
+     * @param items        items to view
+     * @param playerToSend player to send
+     * @param size         a multiple of 9 as the size of inventory to create
+     * @param title        the title of the inventory
+     * @param ticks        when to close the inventory
+     */
     public static void guiToPlayer(ItemStack[] items, Player playerToSend, int size, String title, long ticks) {
         Inventory inventory = Bukkit.createInventory(null, size, title);
 
