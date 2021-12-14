@@ -4,7 +4,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.raid.RaidTriggerEvent;
 
 public final class EventBroadcastListener implements Listener {
     @EventHandler
@@ -12,12 +11,5 @@ public final class EventBroadcastListener implements Listener {
         Player player = event.getEntity();
 
         Log.info("EVENT|DEAD|" + player.getName() + "|" + event.getDeathMessage() + "|" + player.getLevel());
-    }
-
-    @EventHandler
-    public void onRaidTrigger(RaidTriggerEvent event) {
-        Player player = event.getPlayer();
-
-        Log.info("EVENT|RAID|" + player.getName());
     }
 }
