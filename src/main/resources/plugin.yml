@@ -5,6 +5,7 @@ api-version: 1.18
 authors: [ Myth ]
 description: A Spigot plugin to display Minecraft event text in console.
 website: mc.akashic.cc
+softdepend: [ spark ]
 
 
 commands:
@@ -35,6 +36,14 @@ commands:
       /<command> hand
     permission: insight.shareitems
 
+  tpskeep:
+    description: Command of Insight TPSKeep.
+    usage: |
+      /<command> true
+      /<command> false
+      /<command> set <value>
+    permission: insight.tpskeep
+
 
 permissions:
   insight.insight:
@@ -46,3 +55,6 @@ permissions:
   insight.shareitems:
     description: Allows commands of ShareItems.
     default: true
+  Insight.tpskeep:
+    description: Allows commands of TPSKeep.
+    default: op
