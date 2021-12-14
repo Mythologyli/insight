@@ -29,3 +29,6 @@ A Spigot plugin designed for [Akashic Minecraft Server](https://mc.akashic.cc).
 
 + AFK detect
     + When a player is AFK, he will not be counted into not sleeping players.
+
++ TPS Keep
+    + When TPS < 15.0, take a series of measures to keep TPS.
