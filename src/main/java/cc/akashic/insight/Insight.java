@@ -3,15 +3,18 @@ package cc.akashic.insight;
 import cc.akashic.insight.command.*;
 import cc.akashic.insight.utils.ItemsViewer;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import java.io.File;
+import java.util.Objects;
 
 public final class Insight extends JavaPlugin {
     public static Insight instance;
     public static File dataFolder;
+    public static FileConfiguration config;
 
     @Override
     public void onEnable() {
@@ -22,7 +25,8 @@ public final class Insight extends JavaPlugin {
 
         dataFolder = this.getDataFolder();
 
-        CustomRecipe.addRecipe();
+        this.saveDefaultConfig();
+        config = this.getConfig();
 
         File sloganFile = new File(dataFolder + "/slogan.yml");
         if (!sloganFile.exists()) {
@@ -41,11 +45,13 @@ public final class Insight extends JavaPlugin {
 
         Slogan.loadSlogan();
 
-        this.getCommand("insight").setExecutor(new CommandInsight());
-        this.getCommand("xray").setExecutor(new CommandXray());
-        this.getCommand("shareitems").setExecutor(new CommandShareItems());
-        this.getCommand("tpskeep").setExecutor(new CommandTPSKeep());
-        this.getCommand("slogan").setExecutor(new CommandSlogan());
+        CustomRecipe.addRecipe();
+
+        Objects.requireNonNull(this.getCommand("insight")).setExecutor(new CommandInsight());
+        Objects.requireNonNull(this.getCommand("xray")).setExecutor(new CommandXray());
+        Objects.requireNonNull(this.getCommand("shareitems")).setExecutor(new CommandShareItems());
+        Objects.requireNonNull(this.getCommand("tpskeep")).setExecutor(new CommandTPSKeep());
+        Objects.requireNonNull(this.getCommand("slogan")).setExecutor(new CommandSlogan());
 
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new EventBroadcastListener(), this);
@@ -53,6 +59,7 @@ public final class Insight extends JavaPlugin {
         pluginManager.registerEvents(new TPSKeeper.EventListener(), this);
         pluginManager.registerEvents(new Slogan.EventListener(), this);
         pluginManager.registerEvents(new CustomRecipe.EventListener(), this);
+        pluginManager.registerEvents(new JoinPrivateMessenger.EventListener(), this);
         pluginManager.registerEvents(new ItemsViewer.EventListener(), this);
 
         BukkitScheduler bukkitScheduler = Bukkit.getScheduler();

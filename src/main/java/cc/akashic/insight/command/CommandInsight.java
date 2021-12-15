@@ -1,5 +1,6 @@
 package cc.akashic.insight.command;
 
+import cc.akashic.insight.Insight;
 import cc.akashic.insight.Log;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -17,7 +18,18 @@ public final class CommandInsight implements CommandExecutor {
         }
 
         switch (args[0]) {
-            case "stat":
+            case "reload" -> {
+                if (args.length != 1) {
+                    return false;
+                }
+
+                Insight.instance.reloadConfig();
+                Insight.config = Insight.instance.getConfig();
+
+                sender.sendMessage("Insight reload config.yml successfully!");
+            }
+
+            case "stat" -> {
                 OfflinePlayer[] offlinePlayers = Bukkit.getOfflinePlayers();
 
                 if (args.length == 1) {
@@ -86,10 +98,11 @@ public final class CommandInsight implements CommandExecutor {
                     }
                 }
 
-                break;
+            }
 
-            default:
+            default -> {
                 return false;
+            }
         }
 
         return true;

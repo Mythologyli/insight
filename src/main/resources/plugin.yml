@@ -12,6 +12,7 @@ commands:
   insight:
     description: Commands of Insight.
     usage: |
+      /<command> reload
       /<command> stat playoneminute
       /<command> stat deaths
       /<command> stat mobkills
