@@ -5,6 +5,7 @@ import cc.akashic.insight.utils.ItemsViewer;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import java.io.File;
 
@@ -20,6 +21,8 @@ public final class Insight extends JavaPlugin {
         Log.info("Plugin start.");
 
         dataFolder = this.getDataFolder();
+
+        CustomRecipe.addRecipe();
 
         File sloganFile = new File(dataFolder + "/slogan.yml");
         if (!sloganFile.exists()) {
@@ -49,11 +52,13 @@ public final class Insight extends JavaPlugin {
         pluginManager.registerEvents(new AFK.EventListener(), this);
         pluginManager.registerEvents(new TPSKeeper.EventListener(), this);
         pluginManager.registerEvents(new Slogan.EventListener(), this);
+        pluginManager.registerEvents(new CustomRecipe.EventListener(), this);
         pluginManager.registerEvents(new ItemsViewer.EventListener(), this);
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, AFK::task, 200, 1200);
+        BukkitScheduler bukkitScheduler = Bukkit.getScheduler();
+        bukkitScheduler.scheduleSyncRepeatingTask(this, AFK::task, 200, 1200);
         if (isSparkExist) {
-            Bukkit.getScheduler().scheduleSyncRepeatingTask(this, TPSKeeper::task, 1200, 1200);
+            bukkitScheduler.scheduleSyncRepeatingTask(this, TPSKeeper::task, 1200, 1200);
         }
     }
 
