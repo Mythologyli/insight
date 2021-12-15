@@ -38,3 +38,5 @@ A Spigot plugin designed for [Akashic Minecraft Server](https://mc.akashic.cc).
 
 + Custom Recipes
     + Bundle
+
++ Custom PlayerJoin Private Message
