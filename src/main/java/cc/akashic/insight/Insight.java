@@ -9,8 +9,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+
 public final class Insight extends JavaPlugin {
     public static Insight instance;
+    public static File dataFolder;
 
     @Override
     public void onEnable() {
@@ -18,6 +21,16 @@ public final class Insight extends JavaPlugin {
 
         Log.setLogger(getLogger());
         Log.info("Plugin start.");
+
+        dataFolder = this.getDataFolder();
+        File file = new File(dataFolder + "/");
+        if (!file.exists()) {
+            if (file.mkdir()) {
+                Log.info("Create Insight folder.");
+            } else {
+                Log.info("Unable to create Insight folder.");
+            }
+        }
 
         AFK.createAFKTeam();
 

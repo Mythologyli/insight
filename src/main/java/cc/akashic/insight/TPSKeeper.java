@@ -10,6 +10,11 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PigZombieAngerEvent;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public final class TPSKeeper {
     private static Spark spark;
     private static World world;
@@ -103,14 +108,25 @@ public final class TPSKeeper {
     }
 
     public static void task() {
+        DoubleStatistic<StatisticWindow.TicksPerSecond> tps = spark.tps();
+        assert tps != null;
+        double tpsOneMinute = tps.poll(StatisticWindow.TicksPerSecond.MINUTES_1);
+
+        // Try to write TPS in tps.txt
+        try {
+            FileWriter fileWriter = new FileWriter(Insight.dataFolder + "/tps.txt", true);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            fileWriter.write(simpleDateFormat.format(new Date()) + "|" + tpsOneMinute + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            Log.info("Cannot write file tps.txt");
+        }
+
         if (isInForceTPSKeepMode) {
             return;
         }
 
-        DoubleStatistic<StatisticWindow.TicksPerSecond> tps = spark.tps();
-        assert tps != null;
-
-        if (tps.poll(StatisticWindow.TicksPerSecond.MINUTES_1) < TPSTriggerValue) {
+        if (tpsOneMinute < TPSTriggerValue) {
             if (!isInTPSKeepMode) {
                 isInTPSKeepMode = true;
 
