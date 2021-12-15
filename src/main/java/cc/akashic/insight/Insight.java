@@ -32,8 +32,6 @@ public final class Insight extends JavaPlugin {
             }
         }
 
-        AFK.createAFKTeam();
-
         boolean isSparkExist = TPSKeeper.getSpark();
         TPSKeeper.getWorld();
         TPSKeeper.saveOriginMonsterSpawnLimit();

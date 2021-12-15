@@ -10,42 +10,13 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.ScoreboardManager;
-import org.bukkit.scoreboard.Team;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.Set;
 
 public final class AFK {
     static LinkedList<String> AFKPlayerNameList = new LinkedList<>();
     static LinkedList<String> activePlayerNameList = new LinkedList<>();
-    static Team AFKTeam;
-
-    /**
-     * Create a team "AFK" in main scoreboard.
-     * Player suffix: "[AFK]"
-     */
-    public static void createAFKTeam() {
-        ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
-        assert scoreboardManager != null;
-        Scoreboard scoreboard = scoreboardManager.getMainScoreboard();
-
-        try {
-            AFKTeam = scoreboard.registerNewTeam("AFK");
-        } catch (IllegalArgumentException e) {
-            AFKTeam = scoreboard.getTeam("AFK");
-        }
-        assert AFKTeam != null;
-
-        Set<String> entries = AFKTeam.getEntries();
-        for (String entry : entries) {
-            AFKTeam.removeEntry(entry);
-        }
-
-        AFKTeam.setSuffix(ChatColor.YELLOW + "[AFK]");
-    }
 
     /**
      * Set a player's state to active.
@@ -60,8 +31,8 @@ public final class AFK {
             activePlayerNameList.add(playerName);
 
             if (AFKPlayerNameList.contains(playerName)) {
-                AFKTeam.removeEntry(playerName);
                 AFKPlayerNameList.remove(playerName);
+                player.setPlayerListName(playerName);
                 player.setSleepingIgnored(false);
             }
         }
@@ -80,8 +51,8 @@ public final class AFK {
             activePlayerNameList.add(playerName);
 
             if (AFKPlayerNameList.contains(playerName)) {
-                AFKTeam.removeEntry(playerName);
                 AFKPlayerNameList.remove(playerName);
+                player.setPlayerListName(playerName);
                 player.setSleepingIgnored(false);
 
                 Bukkit.broadcastMessage(msg);
@@ -98,8 +69,8 @@ public final class AFK {
             String playerName = player.getName();
 
             if (!activePlayerNameList.contains(playerName) && !AFKPlayerNameList.contains(playerName)) {
-                AFKTeam.addEntry(playerName);
                 AFKPlayerNameList.add(playerName);
+                player.setPlayerListName(playerName + ChatColor.YELLOW + "[AFK]");
                 player.setSleepingIgnored(true);
 
                 Bukkit.broadcastMessage(ChatColor.YELLOW + playerName + " is away from keyboard!");
@@ -108,7 +79,6 @@ public final class AFK {
 
         for (String playerName : AFKPlayerNameList) {
             if (Bukkit.getPlayer(playerName) == null) {
-                AFKTeam.removeEntry(playerName);
                 AFKPlayerNameList.remove(playerName);
 
                 Log.info("Remove offline player " + playerName + " from AFK.");
