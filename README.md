@@ -35,3 +35,6 @@ A Spigot plugin designed for [Akashic Minecraft Server](https://mc.akashic.cc).
 
 + Player Slogan
     + Players can set, remove their slogans.
+
++ Custom Recipes
+    + Bundle
