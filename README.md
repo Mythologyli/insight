@@ -32,3 +32,6 @@ A Spigot plugin designed for [Akashic Minecraft Server](https://mc.akashic.cc).
 
 + TPS Keep
     + When TPS < 15.0, take a series of measures to keep TPS.
+
++ Player Slogan
+    + Players can set, remove their slogans.
