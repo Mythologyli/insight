@@ -44,6 +44,13 @@ commands:
       /<command> set <value>
     permission: insight.tpskeep
 
+  slogan:
+    description: Command of Insight Slogan.
+    usage: |
+      /<command> set <slogan>
+      /<command> clear
+    permission: insight.slogan
+
 
 permissions:
   insight.insight:
@@ -57,4 +64,13 @@ permissions:
     default: true
   Insight.tpskeep:
     description: Allows commands of TPSKeep.
+    default: op
+  Insight.slogan:
+    description: Allows commands of Slogan.
+    default: true
+  Insight.slogan.clearothers:
+    description: Allows commands of Slogan clear <player>.
+    default: op
+  Insight.slogan.reload:
+    description: Allows commands of Slogan reload.
     default: op

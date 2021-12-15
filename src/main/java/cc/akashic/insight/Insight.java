@@ -1,9 +1,6 @@
 package cc.akashic.insight;
 
-import cc.akashic.insight.command.CommandInsight;
-import cc.akashic.insight.command.CommandShareItems;
-import cc.akashic.insight.command.CommandTPSKeep;
-import cc.akashic.insight.command.CommandXray;
+import cc.akashic.insight.command.*;
 import cc.akashic.insight.utils.ItemsViewer;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -23,13 +20,15 @@ public final class Insight extends JavaPlugin {
         Log.info("Plugin start.");
 
         dataFolder = this.getDataFolder();
-        File file = new File(dataFolder + "/");
-        if (!file.exists()) {
-            if (file.mkdir()) {
-                Log.info("Create Insight folder.");
-            } else {
-                Log.info("Unable to create Insight folder.");
-            }
+
+        File sloganFile = new File(dataFolder + "/slogan.yml");
+        if (!sloganFile.exists()) {
+            saveResource("slogan.yml", false);
+        }
+
+        File tpsFile = new File(dataFolder + "/tps.txt");
+        if (!tpsFile.exists()) {
+            saveResource("tps.txt", false);
         }
 
         boolean isSparkExist = TPSKeeper.getSpark();
@@ -37,15 +36,19 @@ public final class Insight extends JavaPlugin {
         TPSKeeper.saveOriginMonsterSpawnLimit();
         TPSKeeper.disableTPSKeepMode();
 
+        Slogan.loadSlogan();
+
         this.getCommand("insight").setExecutor(new CommandInsight());
         this.getCommand("xray").setExecutor(new CommandXray());
         this.getCommand("shareitems").setExecutor(new CommandShareItems());
         this.getCommand("tpskeep").setExecutor(new CommandTPSKeep());
+        this.getCommand("slogan").setExecutor(new CommandSlogan());
 
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new EventBroadcastListener(), this);
         pluginManager.registerEvents(new AFK.EventListener(), this);
         pluginManager.registerEvents(new TPSKeeper.EventListener(), this);
+        pluginManager.registerEvents(new Slogan.EventListener(), this);
         pluginManager.registerEvents(new ItemsViewer.EventListener(), this);
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, AFK::task, 200, 1200);
@@ -56,6 +59,8 @@ public final class Insight extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        Slogan.saveSlogan();
+
         Log.info("Plugin stop.");
     }
 }
