@@ -18,17 +18,6 @@ public final class CommandTPSKeep implements CommandExecutor {
             } else {
                 return false;
             }
-        } else if (args.length == 2) {
-            if (args[0].equals("set")) {
-                try {
-                    TPSKeeper.setTPSTriggerValue(Double.parseDouble(args[1]));
-                    sender.sendMessage("Set TPSTriggerValue " + Double.parseDouble(args[1]) + " .");
-                } catch (NumberFormatException e) {
-                    return false;
-                }
-            } else {
-                return false;
-            }
         } else {
             return false;
         }

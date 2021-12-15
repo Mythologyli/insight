@@ -21,7 +21,6 @@ public final class TPSKeeper {
     private static int originMonsterSpawnLimit;
     private static boolean isInTPSKeepMode = false;
     private static boolean isInForceTPSKeepMode = false;
-    private static double TPSTriggerValue = 15.0;
 
     /**
      * Get Spark Plugin.
@@ -49,15 +48,6 @@ public final class TPSKeeper {
      */
     public static void saveOriginMonsterSpawnLimit() {
         originMonsterSpawnLimit = Bukkit.getMonsterSpawnLimit();
-    }
-
-    /**
-     * Set TPSTriggerValue.
-     *
-     * @param TPSTriggerValue TPSTriggerValue
-     */
-    public static void setTPSTriggerValue(double TPSTriggerValue) {
-        TPSKeeper.TPSTriggerValue = TPSTriggerValue;
     }
 
     /**
@@ -126,7 +116,7 @@ public final class TPSKeeper {
             return;
         }
 
-        if (tpsOneMinute < TPSTriggerValue) {
+        if (tpsOneMinute < Insight.config.getDouble("TPSKeeper.tpsTriggerValue", 15.0)) {
             if (!isInTPSKeepMode) {
                 isInTPSKeepMode = true;
 

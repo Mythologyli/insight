@@ -42,7 +42,6 @@ commands:
     usage: |
       /<command> true
       /<command> false
-      /<command> set <value>
     permission: insight.tpskeep
 
   slogan:
