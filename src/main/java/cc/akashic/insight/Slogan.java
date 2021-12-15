@@ -1,5 +1,6 @@
 package cc.akashic.insight;
 
+import cc.akashic.insight.utils.ListNameEditor;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -21,7 +22,7 @@ public final class Slogan {
 
         Collection<? extends Player> players = Bukkit.getOnlinePlayers();
         for (Player player : players) {
-            player.setPlayerListFooter(config.getString("Slogan." + player.getName(), ""));
+            ListNameEditor.setPlayerListNameSuffix(player, config.getString("Slogan." + player.getName(), ""));
         }
     }
 
@@ -34,13 +35,13 @@ public final class Slogan {
     }
 
     public static void setPlayerSlogan(Player player, String slogan) {
-        slogan = ChatColor.LIGHT_PURPLE + slogan;
-        player.setPlayerListFooter(slogan);
+        slogan = ChatColor.LIGHT_PURPLE + "[" + slogan + "]";
+        ListNameEditor.setPlayerListNameSuffix(player, slogan);
         config.set("Slogan." + player.getName(), slogan);
     }
 
     public static void clearPlayerSlogan(Player player) {
-        player.setPlayerListFooter("");
+        ListNameEditor.setPlayerListNameSuffix(player, "");
         config.set("Slogan." + player.getName(), "");
     }
 
@@ -48,8 +49,7 @@ public final class Slogan {
         @EventHandler(priority = EventPriority.LOWEST)
         public void onPlayerJoin(PlayerJoinEvent event) {
             Player player = event.getPlayer();
-            String slogan = config.getString("Slogan." + player.getName(), "");
-            setPlayerSlogan(player, slogan);
+            ListNameEditor.setPlayerListNameSuffix(player, config.getString("Slogan." + player.getName(), ""));
         }
     }
 }

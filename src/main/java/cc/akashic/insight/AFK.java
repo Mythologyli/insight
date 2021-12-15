@@ -1,5 +1,6 @@
 package cc.akashic.insight;
 
+import cc.akashic.insight.utils.ListNameEditor;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -32,7 +33,7 @@ public final class AFK {
 
             if (AFKPlayerNameList.contains(playerName)) {
                 AFKPlayerNameList.remove(playerName);
-                player.setPlayerListName(playerName);
+                ListNameEditor.setPlayerListNamePrefix(player, "");
                 player.setSleepingIgnored(false);
             }
         }
@@ -52,7 +53,7 @@ public final class AFK {
 
             if (AFKPlayerNameList.contains(playerName)) {
                 AFKPlayerNameList.remove(playerName);
-                player.setPlayerListName(playerName);
+                ListNameEditor.setPlayerListNamePrefix(player, "");
                 player.setSleepingIgnored(false);
 
                 Bukkit.broadcastMessage(msg);
@@ -70,7 +71,7 @@ public final class AFK {
 
             if (!activePlayerNameList.contains(playerName) && !AFKPlayerNameList.contains(playerName)) {
                 AFKPlayerNameList.add(playerName);
-                player.setPlayerListName(playerName + ChatColor.YELLOW + "[AFK]");
+                ListNameEditor.setPlayerListNamePrefix(player, ChatColor.YELLOW + "[AFK]");
                 player.setSleepingIgnored(true);
 
                 Bukkit.broadcastMessage(ChatColor.YELLOW + playerName + " is away from keyboard!");
