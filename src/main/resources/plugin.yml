@@ -74,3 +74,6 @@ permissions:
   Insight.slogan.reload:
     description: Allows commands of Slogan reload.
     default: op
+  Insight.slogan.save:
+    description: Allows commands of Slogan save.
+    default: op

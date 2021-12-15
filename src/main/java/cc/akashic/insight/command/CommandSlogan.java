@@ -71,6 +71,19 @@ public final class CommandSlogan implements CommandExecutor {
                 }
             }
 
+            case "save" -> {
+                if (sender.hasPermission("Insight.slogan.save")) {
+                    if (args.length != 1) {
+                        return false;
+                    }
+
+                    Slogan.saveSlogan();
+                    sender.sendMessage("Slogan saved!");
+                } else {
+                    sender.sendMessage("You don't have permission to do this!");
+                }
+            }
+
             default -> {
                 return false;
             }
