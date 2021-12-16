@@ -8,6 +8,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -92,7 +93,7 @@ public final class ItemsViewer {
     }
 
     public static final class EventListener implements Listener {
-        @EventHandler
+        @EventHandler(priority = EventPriority.HIGHEST)
         public void onInventoryClick(InventoryClickEvent event) {
             if (protectedInventoryList.contains(event.getInventory())) {
                 event.setResult(Event.Result.DENY);
