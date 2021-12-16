@@ -2,4 +2,4 @@ TPSKeeper:
   tpsTriggerValue: 15.0
 
 JoinPrivateMessenger:
-  message: 'Welcome to Akashic Server!'
+  message: Welcome to Akashic Server!
