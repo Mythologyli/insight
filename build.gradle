@@ -24,6 +24,7 @@ repositories {
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT'
     compileOnly 'me.lucko:spark-api:0.1-SNAPSHOT'
+    implementation 'org.bstats:bstats-bukkit:2.2.1'
 }
 
 jar {
@@ -38,4 +39,6 @@ shadowJar {
 
     exclude 'LICENSE'
     exclude '*.md'
+
+    relocate('org.bstats', 'cc.akashic')
 }

@@ -2,6 +2,7 @@ package cc.akashic.insight;
 
 import cc.akashic.insight.command.*;
 import cc.akashic.insight.utils.ItemsViewer;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
@@ -67,6 +68,9 @@ public final class Insight extends JavaPlugin {
         if (isSparkExist) {
             bukkitScheduler.scheduleSyncRepeatingTask(this, TPSKeeper::task, 1200, 1200);
         }
+
+        int pluginId = 13612;
+        Metrics metrics = new Metrics(this, pluginId);
     }
 
     @Override
