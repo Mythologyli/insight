@@ -128,7 +128,7 @@ public final class LeaderBoard {
             }
 
             i++;
-            if (i > 27) {
+            if (i > 24) {
                 break;
             }
         }
