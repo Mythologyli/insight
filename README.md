@@ -40,3 +40,5 @@ A Spigot plugin designed for [Akashic Minecraft Server](https://mc.akashic.cc).
     + Bundle
 
 + Custom PlayerJoin Private Message
+
++ Item Leader Board
