@@ -23,22 +23,20 @@ public final class LeaderBoard {
     private static final ArrayList<Inventory> protectedInventoryList = new ArrayList<>();
 
     public static void openToPlayer(Player player) {
-        ItemStack itemInMainHand = player.getInventory().getItemInMainHand();
-        Material itemType = itemInMainHand.getType();
+        Material itemType = player.getInventory().getItemInMainHand().getType();
 
         if (itemType == Material.AIR) {
             player.sendMessage("You must hold something in your hand!");
             return;
         }
 
-        selectStatisticToPlayer(player, itemInMainHand);
+        selectStatisticToPlayer(player, itemType);
     }
 
-    private static void selectStatisticToPlayer(Player player, ItemStack item) {
+    private static void selectStatisticToPlayer(Player player, Material material) {
         Inventory inventory = Bukkit.createInventory(null, 9, "Select Statistic Type");
 
-        item.setAmount(1);
-        inventory.addItem(item);
+        inventory.addItem(new ItemStack(material));
         inventory.addItem(new ItemStack(Material.BARRIER));
 
         ItemStack itemMined = new ItemStack(Material.BLACK_SHULKER_BOX);
@@ -121,7 +119,12 @@ public final class LeaderBoard {
             items.add(item);
 
             if (i % 4 == 0) {
-                items.add(new ItemStack(Material.BARRIER));
+                ItemStack barrier = new ItemStack(Material.BARRIER);
+                ItemMeta barrierMeta = barrier.getItemMeta();
+                assert barrierMeta != null;
+                barrierMeta.setDisplayName(String.valueOf(i));
+                barrier.setItemMeta(barrierMeta);
+                items.add(barrier);
             }
 
             i++;
