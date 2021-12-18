@@ -51,6 +51,12 @@ commands:
       /<command> clear
     permission: insight.slogan
 
+  leader:
+    description: Command of Insight Leader Board.
+    usage: |
+      /<command> leader
+    permission: insight.leader
+
 
 permissions:
   insight.insight:
@@ -62,18 +68,21 @@ permissions:
   insight.shareitems:
     description: Allows commands of ShareItems.
     default: true
-  Insight.tpskeep:
+  insight.tpskeep:
     description: Allows commands of TPSKeep.
     default: op
-  Insight.slogan:
+  insight.slogan:
     description: Allows commands of Slogan.
     default: true
-  Insight.slogan.clearothers:
+  insight.slogan.clearothers:
     description: Allows commands of Slogan clear <player>.
     default: op
-  Insight.slogan.reload:
+  insight.slogan.reload:
     description: Allows commands of Slogan reload.
     default: op
-  Insight.slogan.save:
+  insight.slogan.save:
     description: Allows commands of Slogan save.
     default: op
+  insight.leader:
+    description: Allows commands of Leader Board.
+    default: true

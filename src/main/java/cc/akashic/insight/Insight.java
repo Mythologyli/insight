@@ -53,6 +53,7 @@ public final class Insight extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("shareitems")).setExecutor(new CommandShareItems());
         Objects.requireNonNull(this.getCommand("tpskeep")).setExecutor(new CommandTPSKeep());
         Objects.requireNonNull(this.getCommand("slogan")).setExecutor(new CommandSlogan());
+        Objects.requireNonNull(this.getCommand("leader")).setExecutor(new CommandLeader());
 
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new EventBroadcastListener(), this);
@@ -61,12 +62,13 @@ public final class Insight extends JavaPlugin {
         pluginManager.registerEvents(new Slogan.EventListener(), this);
         pluginManager.registerEvents(new CustomRecipe.EventListener(), this);
         pluginManager.registerEvents(new JoinPrivateMessenger.EventListener(), this);
+        pluginManager.registerEvents(new LeaderBoard.EventListener(), this);
         pluginManager.registerEvents(new ItemsViewer.EventListener(), this);
 
         BukkitScheduler bukkitScheduler = Bukkit.getScheduler();
-        bukkitScheduler.scheduleSyncRepeatingTask(this, AFK::task, 200, 1200);
+        bukkitScheduler.scheduleSyncRepeatingTask(this, AFK::task, 200L, 1200L);
         if (isSparkExist) {
-            bukkitScheduler.scheduleSyncRepeatingTask(this, TPSKeeper::task, 1200, 1200);
+            bukkitScheduler.scheduleSyncRepeatingTask(this, TPSKeeper::task, 1200L, 1200L);
         }
 
         int pluginId = 13612;
