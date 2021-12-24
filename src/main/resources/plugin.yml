@@ -57,6 +57,13 @@ commands:
       /<command> leader
     permission: insight.leader
 
+  keepspectator:
+    description: Command of Insight Spectator Keeper.
+    usage: |
+      /<command> on
+      /<command> off
+    permission: insight.keepspectator
+
 
 permissions:
   insight.insight:
@@ -86,3 +93,6 @@ permissions:
   insight.leader:
     description: Allows commands of Leader Board.
     default: true
+  insight.keepspectator:
+    description: Allows command of Insight Spectator Keeper.
+    default: op

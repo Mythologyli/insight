@@ -54,6 +54,7 @@ public final class Insight extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("tpskeep")).setExecutor(new CommandTPSKeep());
         Objects.requireNonNull(this.getCommand("slogan")).setExecutor(new CommandSlogan());
         Objects.requireNonNull(this.getCommand("leader")).setExecutor(new CommandLeader());
+        Objects.requireNonNull(this.getCommand("keepspectator")).setExecutor(new CommandKeepSpectator());
 
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new EventBroadcastListener(), this);
@@ -70,6 +71,7 @@ public final class Insight extends JavaPlugin {
         if (isSparkExist) {
             bukkitScheduler.scheduleSyncRepeatingTask(this, TPSKeeper::task, 1200L, 1200L);
         }
+        bukkitScheduler.scheduleSyncRepeatingTask(this, SpectatorKeeper::task, 200L, 20L);
 
         int pluginId = 13612;
         Metrics metrics = new Metrics(this, pluginId);
