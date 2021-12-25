@@ -71,7 +71,6 @@ public final class Insight extends JavaPlugin {
         if (isSparkExist) {
             bukkitScheduler.scheduleSyncRepeatingTask(this, TPSKeeper::task, 1200L, 1200L);
         }
-        bukkitScheduler.scheduleSyncRepeatingTask(this, SpectatorKeeper::task, 200L, 20L);
 
         int pluginId = 13612;
         Metrics metrics = new Metrics(this, pluginId);
