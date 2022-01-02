@@ -1,6 +1,7 @@
 package cc.akashic.insight;
 
 import cc.akashic.insight.utils.ListNameEditor;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -56,7 +57,7 @@ public final class AFK {
                 ListNameEditor.setPlayerListNamePrefix(player, "");
                 player.setSleepingIgnored(false);
 
-                Bukkit.broadcastMessage(msg);
+                Bukkit.broadcast(Component.text(msg));
             }
         }
     }
@@ -74,7 +75,7 @@ public final class AFK {
                 ListNameEditor.setPlayerListNamePrefix(player, ChatColor.YELLOW + "[AFK]");
                 player.setSleepingIgnored(true);
 
-                Bukkit.broadcastMessage(ChatColor.YELLOW + playerName + " is away from keyboard!");
+                Bukkit.broadcast(Component.text(ChatColor.YELLOW + playerName + " is away from keyboard!"));
             }
         }
 

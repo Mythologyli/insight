@@ -2,6 +2,7 @@ package cc.akashic.insight;
 
 import cc.akashic.insight.utils.ItemsViewer;
 import cc.akashic.insight.utils.PlayerHead;
+import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -34,7 +35,7 @@ public final class LeaderBoard {
     }
 
     private static void selectStatisticToPlayer(Player player, Material material) {
-        Inventory inventory = Bukkit.createInventory(null, 9, "Select Statistic Type");
+        Inventory inventory = Bukkit.createInventory(null, 9, Component.text("Select Statistic Type"));
 
         inventory.addItem(new ItemStack(material));
         inventory.addItem(new ItemStack(Material.BARRIER));
@@ -42,42 +43,42 @@ public final class LeaderBoard {
         ItemStack itemMined = new ItemStack(Material.BLACK_SHULKER_BOX);
         ItemMeta itemMinedMeta = itemMined.getItemMeta();
         assert itemMinedMeta != null;
-        itemMinedMeta.setDisplayName("Mined");
+        itemMinedMeta.displayName(Component.text("Mined"));
         itemMined.setItemMeta(itemMinedMeta);
         inventory.addItem(itemMined);
 
         ItemStack itemBroken = new ItemStack(Material.BLUE_SHULKER_BOX);
         ItemMeta itemBrokenMeta = itemMined.getItemMeta();
         assert itemBrokenMeta != null;
-        itemBrokenMeta.setDisplayName("Broken");
+        itemBrokenMeta.displayName(Component.text("Broken"));
         itemBroken.setItemMeta(itemBrokenMeta);
         inventory.addItem(itemBroken);
 
         ItemStack itemCrafted = new ItemStack(Material.BROWN_SHULKER_BOX);
         ItemMeta itemCraftedMeta = itemMined.getItemMeta();
         assert itemCraftedMeta != null;
-        itemCraftedMeta.setDisplayName("Crafted");
+        itemCraftedMeta.displayName(Component.text("Crafted"));
         itemCrafted.setItemMeta(itemCraftedMeta);
         inventory.addItem(itemCrafted);
 
         ItemStack itemUsed = new ItemStack(Material.CYAN_SHULKER_BOX);
         ItemMeta itemUsedMeta = itemMined.getItemMeta();
         assert itemUsedMeta != null;
-        itemUsedMeta.setDisplayName("Used");
+        itemUsedMeta.displayName(Component.text("Used"));
         itemUsed.setItemMeta(itemUsedMeta);
         inventory.addItem(itemUsed);
 
         ItemStack itemPickUp = new ItemStack(Material.GRAY_SHULKER_BOX);
         ItemMeta itemPickUpMeta = itemMined.getItemMeta();
         assert itemPickUpMeta != null;
-        itemPickUpMeta.setDisplayName("Pick Up");
+        itemPickUpMeta.displayName(Component.text("Pick Up"));
         itemPickUp.setItemMeta(itemPickUpMeta);
         inventory.addItem(itemPickUp);
 
         ItemStack itemDropped = new ItemStack(Material.GREEN_SHULKER_BOX);
         ItemMeta itemDroppedMeta = itemMined.getItemMeta();
         assert itemDroppedMeta != null;
-        itemDroppedMeta.setDisplayName("Dropped");
+        itemDroppedMeta.displayName(Component.text("Dropped"));
         itemDropped.setItemMeta(itemDroppedMeta);
         inventory.addItem(itemDropped);
 
@@ -109,11 +110,11 @@ public final class LeaderBoard {
             ItemMeta meta = item.getItemMeta();
             assert meta != null;
 
-            meta.setDisplayName(ChatColor.DARK_AQUA + offlinePlayer.getName());
-            ArrayList<String> lore = new ArrayList<>();
-            lore.add("No. " + i);
-            lore.add("Value: " + offlinePlayer.getStatistic(statistic, material));
-            meta.setLore(lore);
+            meta.displayName(Component.text(ChatColor.DARK_AQUA + offlinePlayer.getName()));
+            ArrayList<Component> lore = new ArrayList<>();
+            lore.add(Component.text("No. " + i));
+            lore.add(Component.text("Value: " + offlinePlayer.getStatistic(statistic, material)));
+            meta.lore(lore);
             item.setItemMeta(meta);
 
             items.add(item);
@@ -122,7 +123,7 @@ public final class LeaderBoard {
                 ItemStack barrier = new ItemStack(Material.BARRIER);
                 ItemMeta barrierMeta = barrier.getItemMeta();
                 assert barrierMeta != null;
-                barrierMeta.setDisplayName(String.valueOf(i));
+                barrierMeta.displayName(Component.text(String.valueOf(i)));
                 barrier.setItemMeta(barrierMeta);
                 items.add(barrier);
             }

@@ -1,5 +1,6 @@
 package cc.akashic.insight.utils;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -19,7 +20,7 @@ public final class ListNameEditor {
         }
 
         playerListNameMap.put(playerName, extraList);
-        player.setPlayerListName(extraList[0] + ChatColor.RESET + playerName + extraList[1]);
+        player.playerListName(Component.text(extraList[0] + ChatColor.RESET + playerName + extraList[1]));
     }
 
     public static void setPlayerListNameSuffix(Player player, String suffix) {
@@ -33,6 +34,6 @@ public final class ListNameEditor {
         }
 
         playerListNameMap.put(playerName, extraList);
-        player.setPlayerListName(extraList[0] + ChatColor.RESET + playerName + extraList[1]);
+        player.playerListName(Component.text(extraList[0] + ChatColor.RESET + playerName + extraList[1]));
     }
 }

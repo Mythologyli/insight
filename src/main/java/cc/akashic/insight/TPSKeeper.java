@@ -4,6 +4,7 @@ import me.lucko.spark.api.Spark;
 import me.lucko.spark.api.SparkProvider;
 import me.lucko.spark.api.statistic.StatisticWindow;
 import me.lucko.spark.api.statistic.types.DoubleStatistic;
+import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -122,14 +123,14 @@ public final class TPSKeeper {
 
                 enableTPSKeepMode();
 
-                Bukkit.broadcastMessage(ChatColor.RED + "WARNING: LOW TPS! TPS KEEP MODE ENABLE!");
+                Bukkit.broadcast(Component.text(ChatColor.RED + "WARNING: LOW TPS! TPS KEEP MODE ENABLE!"));
             }
         } else if (isInTPSKeepMode) {
             isInTPSKeepMode = false;
 
             disableTPSKeepMode();
 
-            Bukkit.broadcastMessage(ChatColor.GREEN + "TPS KEEP MODE DISABLE!");
+            Bukkit.broadcast(Component.text(ChatColor.GREEN + "TPS KEEP MODE DISABLE!"));
         }
     }
 

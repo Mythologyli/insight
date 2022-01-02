@@ -3,9 +3,10 @@ package cc.akashic.insight.command;
 import cc.akashic.insight.Insight;
 import cc.akashic.insight.utils.ItemsViewer;
 import cc.akashic.insight.utils.RandomString;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -13,7 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.Collection;
+
 
 public final class CommandShareItems implements CommandExecutor {
     private static final ArrayList<ItemStack[]> protectedItemStacksList = new ArrayList<>();
@@ -27,13 +28,7 @@ public final class CommandShareItems implements CommandExecutor {
     }
 
     private static void printShareText(String commandRandomString) {
-        TextComponent textComponent = new TextComponent(net.md_5.bungee.api.ChatColor.GREEN + "[Click here]");
-        textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/shareitems view " + commandRandomString));
-
-        Collection<? extends Player> players = Bukkit.getOnlinePlayers();
-        for (Player player : players) {
-            player.spigot().sendMessage(textComponent, new TextComponent(" to view."));
-        }
+        Bukkit.broadcast(Component.text(ChatColor.GREEN + "[Click here]").clickEvent(ClickEvent.runCommand("/shareitems view " + commandRandomString)).append(Component.text(" to view.")));
     }
 
     @Override
@@ -57,7 +52,7 @@ public final class CommandShareItems implements CommandExecutor {
             createDelayedDeleteTask(items, commandRandomString); // Delete them 12000 ticks later. (10 min)
 
             // Send message to all players.
-            Bukkit.broadcastMessage(org.bukkit.ChatColor.AQUA + "Player " + org.bukkit.ChatColor.DARK_PURPLE + player.getName() + org.bukkit.ChatColor.AQUA + " shared his inventory!");
+            Bukkit.broadcast(Component.text(org.bukkit.ChatColor.AQUA + "Player " + org.bukkit.ChatColor.DARK_PURPLE + player.getName() + org.bukkit.ChatColor.AQUA + " shared his inventory!"));
 
             printShareText(commandRandomString); // Send the clickable text.
         } else {
@@ -76,7 +71,7 @@ public final class CommandShareItems implements CommandExecutor {
 
                     createDelayedDeleteTask(items, commandRandomString);
 
-                    Bukkit.broadcastMessage(org.bukkit.ChatColor.AQUA + "Player " + player.getName() + " shared his items in hand!");
+                    Bukkit.broadcast(Component.text(org.bukkit.ChatColor.AQUA + "Player " + player.getName() + " shared his items in hand!"));
 
                     printShareText(commandRandomString);
                 }
