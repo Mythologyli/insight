@@ -1,6 +1,8 @@
 package cc.akashic.insight.command;
 
 import cc.akashic.insight.utils.ItemsViewer;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -46,17 +48,17 @@ public final class CommandXray implements CommandExecutor {
             }
         }
 
-        sender.sendMessage(org.bukkit.ChatColor.GREEN + "-------------------------");
-        sender.sendMessage(org.bukkit.ChatColor.AQUA + "Player: " + playerName);
+        sender.sendMessage(Component.text("-------------------------", NamedTextColor.GREEN));
+        sender.sendMessage(Component.text("Player: " + playerName, NamedTextColor.AQUA));
 
         if (sender instanceof Player) {
-            sender.sendMessage(org.bukkit.ChatColor.YELLOW + "Open a Xray result box.");
+            sender.sendMessage(Component.text("Open a Xray result box.", NamedTextColor.YELLOW));
             ItemsViewer.guiToPlayer(items, (Player) sender, inventorySize, "Xray of " + playerName + "'s Items", 1200L);
         } else {
             ItemsViewer.printToConsole(items);
         }
 
-        sender.sendMessage(org.bukkit.ChatColor.GREEN + "-------------------------");
+        sender.sendMessage(Component.text("-------------------------", NamedTextColor.GREEN));
 
         return true;
     }

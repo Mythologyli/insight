@@ -2,7 +2,6 @@ package cc.akashic.insight;
 
 import cc.akashic.insight.utils.ListNameEditor;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,7 +34,7 @@ public final class Slogan {
     }
 
     public static void setPlayerSlogan(Player player, String slogan) {
-        slogan = ChatColor.LIGHT_PURPLE + "[" + slogan + "]";
+        slogan = "[" + slogan + "]";
         ListNameEditor.setPlayerListNameSuffix(player, slogan);
         config.set("Slogan." + player.getName(), slogan);
     }

@@ -5,8 +5,8 @@ import cc.akashic.insight.utils.ItemsViewer;
 import cc.akashic.insight.utils.RandomString;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -39,9 +39,9 @@ public final class CommandShareItems implements CommandExecutor {
             Bukkit.getScheduler().scheduleSyncDelayedTask(Insight.instance, () -> protectedShareSet.remove(commandRandomString), 12000); // Delete them 12000 ticks later. (10 min)
 
             // Send message to all players.
-            Bukkit.broadcast(Component.text(ChatColor.AQUA + "Player " + ChatColor.DARK_PURPLE + player.getName() + ChatColor.AQUA + " shared his inventory!"));
+            Bukkit.broadcast(Component.text("Player ", NamedTextColor.AQUA).append(Component.text(player.getName(), NamedTextColor.DARK_PURPLE).append(Component.text(" shared his inventory!", NamedTextColor.AQUA))));
 
-            Bukkit.broadcast(Component.text(ChatColor.GREEN + "[Click here]").clickEvent(ClickEvent.runCommand("/shareitems view " + commandRandomString)).append(Component.text(" to view."))); // Send the clickable text.
+            Bukkit.broadcast(Component.text("[Click here]", NamedTextColor.GREEN).clickEvent(ClickEvent.runCommand("/shareitems view " + commandRandomString)).append(Component.text(" to view."))); // Send the clickable text.
         } else {
             switch (args[0]) {
                 case "hand" -> {
@@ -57,9 +57,9 @@ public final class CommandShareItems implements CommandExecutor {
 
                     Bukkit.getScheduler().scheduleSyncDelayedTask(Insight.instance, () -> protectedShareSet.remove(commandRandomString), 12000);
 
-                    Bukkit.broadcast(Component.text(ChatColor.AQUA + "Player " + player.getName() + " shared his items in hand!"));
+                    Bukkit.broadcast(Component.text("Player ", NamedTextColor.AQUA).append(Component.text(player.getName(), NamedTextColor.DARK_PURPLE).append(Component.text(" shared his items in hand!", NamedTextColor.AQUA))));
 
-                    Bukkit.broadcast(Component.text(ChatColor.GREEN + "[Click here]").clickEvent(ClickEvent.runCommand("/shareitems view " + commandRandomString)).append(Component.text(" to view.")));
+                    Bukkit.broadcast(Component.text("[Click here]", NamedTextColor.GREEN).clickEvent(ClickEvent.runCommand("/shareitems view " + commandRandomString)).append(Component.text(" to view."))); // Send the clickable text.
                 }
                 case "view" -> {
                     if (args.length != 2) { // "/shareitems view xxxxxxxx" means viewing a previous share. This command issued when a player clicked the clickable text.

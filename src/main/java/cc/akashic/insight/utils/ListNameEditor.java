@@ -1,10 +1,11 @@
 package cc.akashic.insight.utils;
 
 import net.kyori.adventure.text.Component;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
+
 
 public final class ListNameEditor {
     private static final HashMap<String, String[]> playerListNameMap = new HashMap<>();
@@ -20,7 +21,7 @@ public final class ListNameEditor {
         }
 
         playerListNameMap.put(playerName, extraList);
-        player.playerListName(Component.text(extraList[0] + ChatColor.RESET + playerName + extraList[1]));
+        player.playerListName(Component.text(extraList[0], NamedTextColor.YELLOW).append(Component.text(playerName)).append(Component.text(extraList[1], NamedTextColor.LIGHT_PURPLE)));
     }
 
     public static void setPlayerListNameSuffix(Player player, String suffix) {
@@ -34,6 +35,6 @@ public final class ListNameEditor {
         }
 
         playerListNameMap.put(playerName, extraList);
-        player.playerListName(Component.text(extraList[0] + ChatColor.RESET + playerName + extraList[1]));
+        player.playerListName(Component.text(extraList[0], NamedTextColor.YELLOW).append(Component.text(playerName)).append(Component.text(extraList[1], NamedTextColor.LIGHT_PURPLE)));
     }
 }

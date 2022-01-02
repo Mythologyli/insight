@@ -3,6 +3,7 @@ package cc.akashic.insight;
 import cc.akashic.insight.utils.ItemsViewer;
 import cc.akashic.insight.utils.PlayerHead;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -107,7 +108,7 @@ public final class LeaderBoard {
             ItemMeta meta = item.getItemMeta();
             assert meta != null;
 
-            meta.displayName(Component.text(ChatColor.DARK_AQUA + offlinePlayer.getName()));
+            meta.displayName(Component.text(Objects.requireNonNull(offlinePlayer.getName()), NamedTextColor.DARK_AQUA));
             ArrayList<Component> lore = new ArrayList<>();
             lore.add(Component.text("No. " + i));
             lore.add(Component.text("Value: " + offlinePlayer.getStatistic(statistic, material)));

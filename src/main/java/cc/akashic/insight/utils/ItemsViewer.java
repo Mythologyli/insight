@@ -3,7 +3,6 @@ package cc.akashic.insight.utils;
 import cc.akashic.insight.Insight;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -40,7 +39,7 @@ public final class ItemsViewer {
                 isEmpty = false;
                 Map<Enchantment, Integer> enchantments = item.getEnchantments();
 
-                StringBuilder message = new StringBuilder(ChatColor.YELLOW + material.toString() + ChatColor.RESET + " x" + item.getAmount() + " " + ChatColor.LIGHT_PURPLE);
+                StringBuilder message = new StringBuilder(material + " x" + item.getAmount() + " ");
 
                 for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
                     message.append("| ").append(entry.getKey().getKey()).append(" ").append(entry.getValue()).append(" ");
@@ -51,7 +50,7 @@ public final class ItemsViewer {
         }
 
         if (isEmpty) {
-            Bukkit.getLogger().info(ChatColor.YELLOW + "Nothing!");
+            Bukkit.getLogger().info("Nothing!");
         }
     }
 

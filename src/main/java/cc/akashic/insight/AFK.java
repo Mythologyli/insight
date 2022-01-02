@@ -2,8 +2,9 @@ package cc.akashic.insight;
 
 import cc.akashic.insight.utils.ListNameEditor;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -44,7 +45,7 @@ public final class AFK {
      *
      * @param player player
      */
-    private static void setPlayerStateToActive(Player player, String msg) {
+    private static void setPlayerStateToActive(Player player, TextComponent msg) {
         if (!activePlayerSet.contains(player)) {
             activePlayerSet.add(player);
 
@@ -53,7 +54,7 @@ public final class AFK {
                 ListNameEditor.setPlayerListNamePrefix(player, "");
                 player.setSleepingIgnored(false);
 
-                Bukkit.broadcast(Component.text(msg));
+                Bukkit.broadcast(msg);
             }
         }
     }
@@ -68,10 +69,10 @@ public final class AFK {
 
             if (!activePlayerSet.contains(player) && !AFKPlayerSet.contains(player)) {
                 AFKPlayerSet.add(player);
-                ListNameEditor.setPlayerListNamePrefix(player, ChatColor.YELLOW + "[AFK]");
+                ListNameEditor.setPlayerListNamePrefix(player, "[AFK]");
                 player.setSleepingIgnored(true);
 
-                Bukkit.broadcast(Component.text(ChatColor.YELLOW + playerName + " is away from keyboard!"));
+                Bukkit.broadcast(Component.text(playerName + " is away from keyboard!", NamedTextColor.YELLOW));
             }
         }
 
@@ -100,12 +101,12 @@ public final class AFK {
 
         @EventHandler(priority = EventPriority.LOWEST)
         public void onPlayerMove(PlayerMoveEvent event) {
-            setPlayerStateToActive(event.getPlayer(), ChatColor.YELLOW + event.getPlayer().getName() + " is back now!");
+            setPlayerStateToActive(event.getPlayer(), Component.text(event.getPlayer().getName() + " is back now!", NamedTextColor.YELLOW));
         }
 
         @EventHandler(priority = EventPriority.LOWEST)
         public void onPlayerInteract(PlayerInteractEvent event) {
-            setPlayerStateToActive(event.getPlayer(), ChatColor.YELLOW + event.getPlayer().getName() + " is back now!");
+            setPlayerStateToActive(event.getPlayer(), Component.text(event.getPlayer().getName() + " is back now!", NamedTextColor.YELLOW));
         }
     }
 }
