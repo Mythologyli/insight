@@ -52,7 +52,7 @@ public final class CommandShareItems implements CommandExecutor {
             createDelayedDeleteTask(items, commandRandomString); // Delete them 12000 ticks later. (10 min)
 
             // Send message to all players.
-            Bukkit.broadcast(Component.text(org.bukkit.ChatColor.AQUA + "Player " + org.bukkit.ChatColor.DARK_PURPLE + player.getName() + org.bukkit.ChatColor.AQUA + " shared his inventory!"));
+            Bukkit.broadcast(Component.text(ChatColor.AQUA + "Player " + ChatColor.DARK_PURPLE + player.getName() + ChatColor.AQUA + " shared his inventory!"));
 
             printShareText(commandRandomString); // Send the clickable text.
         } else {
@@ -71,7 +71,7 @@ public final class CommandShareItems implements CommandExecutor {
 
                     createDelayedDeleteTask(items, commandRandomString);
 
-                    Bukkit.broadcast(Component.text(org.bukkit.ChatColor.AQUA + "Player " + player.getName() + " shared his items in hand!"));
+                    Bukkit.broadcast(Component.text(ChatColor.AQUA + "Player " + player.getName() + " shared his items in hand!"));
 
                     printShareText(commandRandomString);
                 }
