@@ -13,23 +13,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public final class CommandShareItems implements CommandExecutor {
-    private static final ArrayList<ItemStack[]> protectedItemStacksList = new ArrayList<>();
-    private static final ArrayList<String> protectedRandomStringList = new ArrayList<>();
-
-    private static void createDelayedDeleteTask(ItemStack[] items, String commandRandomString) {
-        Bukkit.getScheduler().scheduleSyncDelayedTask(Insight.instance, () -> {
-            protectedItemStacksList.remove(items);
-            protectedRandomStringList.remove(commandRandomString);
-        }, 12000);
-    }
-
-    private static void printShareText(String commandRandomString) {
-        Bukkit.broadcast(Component.text(ChatColor.GREEN + "[Click here]").clickEvent(ClickEvent.runCommand("/shareitems view " + commandRandomString)).append(Component.text(" to view.")));
-    }
+    private static final HashMap<String, ItemStack[]> protectedShareSet = new HashMap<>();
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -45,16 +33,15 @@ public final class CommandShareItems implements CommandExecutor {
             items = player.getInventory().getContents();
             String commandRandomString = RandomString.getRandomString(8); // Generate random string for /shareitems view ... command.
 
-            // Add the items and random string into list.
-            protectedItemStacksList.add(items);
-            protectedRandomStringList.add(commandRandomString);
+            // Add share.
+            protectedShareSet.put(commandRandomString, items);
 
-            createDelayedDeleteTask(items, commandRandomString); // Delete them 12000 ticks later. (10 min)
+            Bukkit.getScheduler().scheduleSyncDelayedTask(Insight.instance, () -> protectedShareSet.remove(commandRandomString), 12000); // Delete them 12000 ticks later. (10 min)
 
             // Send message to all players.
             Bukkit.broadcast(Component.text(ChatColor.AQUA + "Player " + ChatColor.DARK_PURPLE + player.getName() + ChatColor.AQUA + " shared his inventory!"));
 
-            printShareText(commandRandomString); // Send the clickable text.
+            Bukkit.broadcast(Component.text(ChatColor.GREEN + "[Click here]").clickEvent(ClickEvent.runCommand("/shareitems view " + commandRandomString)).append(Component.text(" to view."))); // Send the clickable text.
         } else {
             switch (args[0]) {
                 case "hand" -> {
@@ -66,29 +53,26 @@ public final class CommandShareItems implements CommandExecutor {
                     items[0] = player.getInventory().getItemInMainHand();
                     String commandRandomString = RandomString.getRandomString(8);
 
-                    protectedItemStacksList.add(items);
-                    protectedRandomStringList.add(commandRandomString);
+                    protectedShareSet.put(commandRandomString, items);
 
-                    createDelayedDeleteTask(items, commandRandomString);
+                    Bukkit.getScheduler().scheduleSyncDelayedTask(Insight.instance, () -> protectedShareSet.remove(commandRandomString), 12000);
 
                     Bukkit.broadcast(Component.text(ChatColor.AQUA + "Player " + player.getName() + " shared his items in hand!"));
 
-                    printShareText(commandRandomString);
+                    Bukkit.broadcast(Component.text(ChatColor.GREEN + "[Click here]").clickEvent(ClickEvent.runCommand("/shareitems view " + commandRandomString)).append(Component.text(" to view.")));
                 }
                 case "view" -> {
                     if (args.length != 2) { // "/shareitems view xxxxxxxx" means viewing a previous share. This command issued when a player clicked the clickable text.
                         return false;
                     }
 
-                    // Try to find the index of the items.
-                    int index = protectedRandomStringList.indexOf(args[1]);
-                    if (index == -1) {
+                    if (!protectedShareSet.containsKey(args[1])) {
                         sender.sendMessage("Share has expired!"); // After 10 min, the items and random string will be removed from the list.
                         return true;
                     }
 
                     // Get the items and use GUI to share.
-                    items = protectedItemStacksList.get(index);
+                    items = protectedShareSet.get(args[1]);
                     ItemsViewer.guiToPlayer(items, (Player) sender, 54, "Shared Items", 1200L);
 
                     return true;

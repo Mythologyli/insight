@@ -15,13 +15,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Objects;
+import java.util.*;
 
 public final class LeaderBoard {
-    private static final ArrayList<Inventory> protectedInventoryList = new ArrayList<>();
+    private static final HashSet<Inventory> protectedInventoryList = new HashSet<>();
 
     public static void openToPlayer(Player player) {
         Material itemType = player.getInventory().getItemInMainHand().getType();

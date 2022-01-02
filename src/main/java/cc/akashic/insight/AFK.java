@@ -14,11 +14,11 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.HashSet;
 
 public final class AFK {
-    static LinkedList<String> AFKPlayerNameList = new LinkedList<>();
-    static LinkedList<String> activePlayerNameList = new LinkedList<>();
+    static HashSet<Player> AFKPlayerSet = new HashSet<>();
+    static HashSet<Player> activePlayerSet = new HashSet<>();
 
     /**
      * Set a player's state to active.
@@ -27,13 +27,11 @@ public final class AFK {
      * @param player player
      */
     private static void setPlayerStateToActive(Player player) {
-        String playerName = player.getName();
+        if (!activePlayerSet.contains(player)) {
+            activePlayerSet.add(player);
 
-        if (!activePlayerNameList.contains(playerName)) {
-            activePlayerNameList.add(playerName);
-
-            if (AFKPlayerNameList.contains(playerName)) {
-                AFKPlayerNameList.remove(playerName);
+            if (AFKPlayerSet.contains(player)) {
+                AFKPlayerSet.remove(player);
                 ListNameEditor.setPlayerListNamePrefix(player, "");
                 player.setSleepingIgnored(false);
             }
@@ -47,13 +45,11 @@ public final class AFK {
      * @param player player
      */
     private static void setPlayerStateToActive(Player player, String msg) {
-        String playerName = player.getName();
+        if (!activePlayerSet.contains(player)) {
+            activePlayerSet.add(player);
 
-        if (!activePlayerNameList.contains(playerName)) {
-            activePlayerNameList.add(playerName);
-
-            if (AFKPlayerNameList.contains(playerName)) {
-                AFKPlayerNameList.remove(playerName);
+            if (AFKPlayerSet.contains(player)) {
+                AFKPlayerSet.remove(player);
                 ListNameEditor.setPlayerListNamePrefix(player, "");
                 player.setSleepingIgnored(false);
 
@@ -70,8 +66,8 @@ public final class AFK {
         for (Player player : players) {
             String playerName = player.getName();
 
-            if (!activePlayerNameList.contains(playerName) && !AFKPlayerNameList.contains(playerName)) {
-                AFKPlayerNameList.add(playerName);
+            if (!activePlayerSet.contains(player) && !AFKPlayerSet.contains(player)) {
+                AFKPlayerSet.add(player);
                 ListNameEditor.setPlayerListNamePrefix(player, ChatColor.YELLOW + "[AFK]");
                 player.setSleepingIgnored(true);
 
@@ -79,15 +75,15 @@ public final class AFK {
             }
         }
 
-        for (String playerName : AFKPlayerNameList) {
-            if (Bukkit.getPlayer(playerName) == null) {
-                AFKPlayerNameList.remove(playerName);
+        for (Player player : AFKPlayerSet) {
+            if (!player.isOnline()) {
+                AFKPlayerSet.remove(player);
 
-                Log.info("Remove offline player " + playerName + " from AFK.");
+                Log.info("Remove offline player " + player.getName() + " from AFK.");
             }
         }
 
-        activePlayerNameList.clear();
+        activePlayerSet.clear();
     }
 
     public static final class EventListener implements Listener {

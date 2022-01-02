@@ -16,11 +16,11 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
 
 public final class ItemsViewer {
-    private static final ArrayList<Inventory> protectedInventoryList = new ArrayList<>();
+    private static final HashSet<Inventory> protectedInventoryList = new HashSet<>();
 
     /**
      * Print the items to console.
