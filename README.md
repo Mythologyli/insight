@@ -1,4 +1,4 @@
-# insight
+# insight [![wakatime](https://wakatime.com/badge/user/fbf439cc-9e02-45cc-bb7f-21ca6fd95e8d/project/400fefa8-8f1c-4204-986b-9cf95dfbd986.svg)](https://wakatime.com/badge/user/fbf439cc-9e02-45cc-bb7f-21ca6fd95e8d/project/400fefa8-8f1c-4204-986b-9cf95dfbd986)
 
 A Spigot plugin designed for [Akashic Minecraft Server](https://mc.akashic.cc).
 
