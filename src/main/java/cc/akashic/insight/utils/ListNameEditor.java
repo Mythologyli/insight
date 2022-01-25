@@ -21,7 +21,7 @@ public final class ListNameEditor {
         }
 
         playerListNameMap.put(playerName, extraList);
-        player.playerListName(Component.text(extraList[0], NamedTextColor.YELLOW).append(Component.text(playerName)).append(Component.text(extraList[1], NamedTextColor.LIGHT_PURPLE)));
+        player.playerListName(Component.text(extraList[0], NamedTextColor.YELLOW).append(Component.text(playerName, NamedTextColor.WHITE)).append(Component.text(extraList[1], NamedTextColor.LIGHT_PURPLE)));
     }
 
     public static void setPlayerListNameSuffix(Player player, String suffix) {
@@ -35,6 +35,6 @@ public final class ListNameEditor {
         }
 
         playerListNameMap.put(playerName, extraList);
-        player.playerListName(Component.text(extraList[0], NamedTextColor.YELLOW).append(Component.text(playerName)).append(Component.text(extraList[1], NamedTextColor.LIGHT_PURPLE)));
+        player.playerListName(Component.text(extraList[0], NamedTextColor.YELLOW).append(Component.text(playerName, NamedTextColor.WHITE)).append(Component.text(extraList[1], NamedTextColor.LIGHT_PURPLE)));
     }
 }
