@@ -12,7 +12,7 @@ public final class EventBroadcastListener implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
 
-        Log.info("EVENT|DEAD|" + player.getName() + "|" + event.getDeathMessage() + "|" + player.getLevel());
+        Log.info("EVENT|DEAD|" + player.getName() + "|" + event.deathMessage() + "|" + player.getLevel());
     }
 
     @EventHandler

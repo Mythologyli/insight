@@ -7,6 +7,7 @@ import me.lucko.spark.api.statistic.types.DoubleStatistic;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.*;
+import org.bukkit.entity.SpawnCategory;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -49,7 +50,7 @@ public final class TPSKeeper {
      * Save the original MonsterSpawnLimit value.
      */
     public static void saveOriginMonsterSpawnLimit() {
-        originMonsterSpawnLimit = Bukkit.getMonsterSpawnLimit();
+        originMonsterSpawnLimit = Bukkit.getSpawnLimit(SpawnCategory.MONSTER);
     }
 
     /**
@@ -82,7 +83,7 @@ public final class TPSKeeper {
         world.setGameRule(GameRule.DO_TRADER_SPAWNING, false);
 
         // Change monster spawn limit.
-        world.setMonsterSpawnLimit(originMonsterSpawnLimit / 2);
+        world.setSpawnLimit(SpawnCategory.MONSTER, originMonsterSpawnLimit / 2);
     }
 
     public static void disableTPSKeepMode() {
@@ -96,7 +97,7 @@ public final class TPSKeeper {
         world.setGameRule(GameRule.DO_TRADER_SPAWNING, true);
 
         // Change monster spawn limit.
-        world.setMonsterSpawnLimit(originMonsterSpawnLimit);
+        world.setSpawnLimit(SpawnCategory.MONSTER, originMonsterSpawnLimit);
     }
 
     public static void task() {

@@ -18,8 +18,8 @@ import java.util.Collection;
 import java.util.HashSet;
 
 public final class AFK {
-    static HashSet<Player> AFKPlayerSet = new HashSet<>();
-    static HashSet<Player> activePlayerSet = new HashSet<>();
+    static final HashSet<Player> AFKPlayerSet = new HashSet<>();
+    static final HashSet<Player> activePlayerSet = new HashSet<>();
 
     /**
      * Set a player's state to active.
