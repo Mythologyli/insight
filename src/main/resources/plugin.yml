@@ -1,7 +1,7 @@
 name: Insight
 version: 1.2
 main: cc.akashic.insight.Insight
-api-version: 1.18
+api-version: 1.19
 authors: [ Myth ]
 description: A Spigot plugin to display Minecraft event text in console.
 website: mc.akashic.cc
