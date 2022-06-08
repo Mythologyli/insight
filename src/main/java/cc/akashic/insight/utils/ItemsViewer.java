@@ -1,7 +1,6 @@
 package cc.akashic.insight.utils;
 
 import cc.akashic.insight.Insight;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;

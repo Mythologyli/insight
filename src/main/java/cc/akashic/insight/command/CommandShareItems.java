@@ -15,9 +15,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
 import java.util.Collection;
-
+import java.util.HashMap;
 
 public final class CommandShareItems implements CommandExecutor {
     private static final HashMap<String, ItemStack[]> protectedShareSet = new HashMap<>();
