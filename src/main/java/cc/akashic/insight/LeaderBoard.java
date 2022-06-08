@@ -4,7 +4,7 @@ import cc.akashic.insight.utils.ItemsViewer;
 import cc.akashic.insight.utils.PlayerHead;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -21,6 +21,7 @@ import java.util.*;
 
 public final class LeaderBoard {
     private static final HashSet<Inventory> protectedInventoryList = new HashSet<>();
+    private static final LegacyComponentSerializer legacyComponentSerializer = LegacyComponentSerializer.builder().build();
 
     public static void openToPlayer(Player player) {
         Material itemType = player.getInventory().getItemInMainHand().getType();
@@ -109,7 +110,7 @@ public final class LeaderBoard {
             ItemMeta meta = item.getItemMeta();
             assert meta != null;
 
-            meta.setDisplayName(PlainTextComponentSerializer.plainText().serialize(Component.text(Objects.requireNonNull(offlinePlayer.getName()), NamedTextColor.DARK_AQUA)));
+            meta.setDisplayName(legacyComponentSerializer.serialize(Component.text(Objects.requireNonNull(offlinePlayer.getName()), NamedTextColor.DARK_AQUA)));
             ArrayList<String> lore = new ArrayList<>();
             lore.add("No. " + i);
             lore.add("Value: " + offlinePlayer.getStatistic(statistic, material));

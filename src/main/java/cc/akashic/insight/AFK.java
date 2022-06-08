@@ -4,7 +4,7 @@ import cc.akashic.insight.utils.ListNameEditor;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,6 +21,7 @@ import java.util.HashSet;
 public final class AFK {
     static final HashSet<Player> AFKPlayerSet = new HashSet<>();
     static final HashSet<Player> activePlayerSet = new HashSet<>();
+    private static final LegacyComponentSerializer legacyComponentSerializer = LegacyComponentSerializer.builder().build();
 
     /**
      * Set a player's state to active.
@@ -55,7 +56,7 @@ public final class AFK {
                 ListNameEditor.setPlayerListNamePrefix(player, "");
                 player.setSleepingIgnored(false);
 
-                Bukkit.broadcast(PlainTextComponentSerializer.plainText().serialize(msg), "bukkit.broadcast");
+                Bukkit.broadcast(legacyComponentSerializer.serialize(msg), "bukkit.broadcast");
             }
         }
     }
@@ -73,7 +74,7 @@ public final class AFK {
                 ListNameEditor.setPlayerListNamePrefix(player, "[AFK]");
                 player.setSleepingIgnored(true);
 
-                Bukkit.broadcast(PlainTextComponentSerializer.plainText().serialize(Component.text(playerName + " is away from keyboard!", NamedTextColor.YELLOW)), "bukkit.broadcast");
+                Bukkit.broadcast(legacyComponentSerializer.serialize(Component.text(playerName + " is away from keyboard!", NamedTextColor.YELLOW)), "bukkit.broadcast");
             }
         }
 

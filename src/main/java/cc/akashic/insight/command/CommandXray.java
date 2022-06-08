@@ -3,7 +3,7 @@ package cc.akashic.insight.command;
 import cc.akashic.insight.utils.ItemsViewer;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,6 +13,8 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 public final class CommandXray implements CommandExecutor {
+    private static final LegacyComponentSerializer legacyComponentSerializer = LegacyComponentSerializer.builder().build();
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         if (args.length != 2) {
@@ -50,17 +52,17 @@ public final class CommandXray implements CommandExecutor {
             }
         }
 
-        sender.sendMessage(PlainTextComponentSerializer.plainText().serialize(Component.text("-------------------------", NamedTextColor.GREEN)));
-        sender.sendMessage(PlainTextComponentSerializer.plainText().serialize(Component.text("Player: " + playerName, NamedTextColor.AQUA)));
+        sender.sendMessage(legacyComponentSerializer.serialize(Component.text("-------------------------", NamedTextColor.GREEN)));
+        sender.sendMessage(legacyComponentSerializer.serialize(Component.text("Player: " + playerName, NamedTextColor.AQUA)));
 
         if (sender instanceof Player) {
-            sender.sendMessage(PlainTextComponentSerializer.plainText().serialize(Component.text("Open a Xray result box.", NamedTextColor.YELLOW)));
+            sender.sendMessage(legacyComponentSerializer.serialize(Component.text("Open a Xray result box.", NamedTextColor.YELLOW)));
             ItemsViewer.guiToPlayer(items, (Player) sender, inventorySize, "Xray of " + playerName + "'s Items", 1200L);
         } else {
             ItemsViewer.printToConsole(items);
         }
 
-        sender.sendMessage(PlainTextComponentSerializer.plainText().serialize(Component.text("-------------------------", NamedTextColor.GREEN)));
+        sender.sendMessage(legacyComponentSerializer.serialize(Component.text("-------------------------", NamedTextColor.GREEN)));
 
         return true;
     }
