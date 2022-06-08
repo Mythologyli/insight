@@ -6,6 +6,7 @@ import cc.akashic.insight.utils.RandomString;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.serializer.bungeecord.BungeeComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,10 +16,12 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import java.util.Collection;
 
 
 public final class CommandShareItems implements CommandExecutor {
     private static final HashMap<String, ItemStack[]> protectedShareSet = new HashMap<>();
+    private static final BungeeComponentSerializer bungeeComponentSerializer = BungeeComponentSerializer.get();
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
@@ -40,9 +43,13 @@ public final class CommandShareItems implements CommandExecutor {
             Bukkit.getScheduler().scheduleSyncDelayedTask(Insight.instance, () -> protectedShareSet.remove(commandRandomString), 12000); // Delete them 12000 ticks later. (10 min)
 
             // Send message to all players.
-            Bukkit.broadcast(Component.text("Player ", NamedTextColor.AQUA).append(Component.text(player.getName(), NamedTextColor.DARK_PURPLE).append(Component.text(" shared his inventory!", NamedTextColor.AQUA))));
+            Collection<? extends Player> players = Bukkit.getOnlinePlayers();
+            for (Player everyPlayer : players) {
+                everyPlayer.spigot().sendMessage(bungeeComponentSerializer.serialize(Component.text("Player ", NamedTextColor.AQUA).append(Component.text(player.getName(), NamedTextColor.DARK_PURPLE).append(Component.text(" shared his inventory!", NamedTextColor.AQUA)))));
 
-            Bukkit.broadcast(Component.text("[Click here]", NamedTextColor.GREEN).clickEvent(ClickEvent.runCommand("/shareitems view " + commandRandomString)).append(Component.text(" to view."))); // Send the clickable text.
+                // Send the clickable text.
+                everyPlayer.spigot().sendMessage(bungeeComponentSerializer.serialize(Component.text("[Click here]", NamedTextColor.GREEN).clickEvent(ClickEvent.runCommand("/shareitems view " + commandRandomString)).append(Component.text(" to view."))));
+            }
         } else {
             switch (args[0]) {
                 case "hand" -> {
@@ -58,9 +65,13 @@ public final class CommandShareItems implements CommandExecutor {
 
                     Bukkit.getScheduler().scheduleSyncDelayedTask(Insight.instance, () -> protectedShareSet.remove(commandRandomString), 12000);
 
-                    Bukkit.broadcast(Component.text("Player ", NamedTextColor.AQUA).append(Component.text(player.getName(), NamedTextColor.DARK_PURPLE).append(Component.text(" shared his items in hand!", NamedTextColor.AQUA))));
+                    Collection<? extends Player> players = Bukkit.getOnlinePlayers();
+                    for (Player everyPlayer : players) {
+                        everyPlayer.spigot().sendMessage(bungeeComponentSerializer.serialize(Component.text("Player ", NamedTextColor.AQUA).append(Component.text(player.getName(), NamedTextColor.DARK_PURPLE).append(Component.text(" shared his items in hand!", NamedTextColor.AQUA)))));
 
-                    Bukkit.broadcast(Component.text("[Click here]", NamedTextColor.GREEN).clickEvent(ClickEvent.runCommand("/shareitems view " + commandRandomString)).append(Component.text(" to view."))); // Send the clickable text.
+                        // Send the clickable text.
+                        everyPlayer.spigot().sendMessage(bungeeComponentSerializer.serialize(Component.text("[Click here]", NamedTextColor.GREEN).clickEvent(ClickEvent.runCommand("/shareitems view " + commandRandomString)).append(Component.text(" to view."))));
+                    }
                 }
                 case "view" -> {
                     if (args.length != 2) { // "/shareitems view xxxxxxxx" means viewing a previous share. This command issued when a player clicked the clickable text.
