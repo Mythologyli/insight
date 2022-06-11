@@ -38,7 +38,7 @@ public final class SpectatorKeeper {
 
             if (playerSpectator.getWorld() != playerSpectated.getWorld()) {
                 playerSpectator.setSpectatorTarget(null);
-                playerSpectator.teleport(playerSpectated.getWorld().getSpawnLocation());
+                playerSpectator.teleport(playerSpectated.getLocation());
 
                 Bukkit.getScheduler().scheduleSyncDelayedTask(Insight.instance, () -> playerSpectator.setSpectatorTarget(playerSpectated), 20L);
 
