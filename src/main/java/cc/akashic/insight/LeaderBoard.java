@@ -99,7 +99,7 @@ public final class LeaderBoard {
     }
 
     private static void displayLeaderBoardToPlayer(Player player, Statistic statistic, Material material, boolean isReverse) {
-        OfflinePlayer[] offlinePlayersSorted = sortOfflinePlayers(statistic, material, true);
+        OfflinePlayer[] offlinePlayersSorted = sortOfflinePlayers(statistic, material, isReverse);
         ArrayList<ItemStack> items = new ArrayList<>();
 
         int i = 1;
