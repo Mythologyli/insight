@@ -127,14 +127,14 @@ public final class TPSKeeper {
 
                 enableTPSKeepMode();
 
-                Bukkit.broadcast(legacyComponentSerializer.serialize(Component.text("WARNING: LOW TPS! TPS KEEP MODE ENABLE!", NamedTextColor.RED)), "bukkit.broadcast");
+                Bukkit.broadcast(legacyComponentSerializer.serialize(Component.text("WARNING: LOW TPS! TPS KEEP MODE ENABLE!", NamedTextColor.RED)), "");
             }
         } else if (isInTPSKeepMode) {
             isInTPSKeepMode = false;
 
             disableTPSKeepMode();
 
-            Bukkit.broadcast(legacyComponentSerializer.serialize(Component.text("TPS KEEP MODE DISABLE!", NamedTextColor.GREEN)), "bukkit.broadcast");
+            Bukkit.broadcast(legacyComponentSerializer.serialize(Component.text("TPS KEEP MODE DISABLE!", NamedTextColor.GREEN)), "");
         }
     }
 
