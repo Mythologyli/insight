@@ -37,7 +37,7 @@ public final class SpectatorKeeper {
             }
 
             if (playerSpectator.getSpectatorTarget() != playerSpectated || playerSpectator.getWorld() != playerSpectated.getWorld() || playerSpectator.getLocation().distance(playerSpectated.getLocation()) > 2.0) {
-                Bukkit.getServer().dispatchCommand(playerSpectator, "spectator " + playerSpectated.getName());
+                Bukkit.getServer().dispatchCommand(playerSpectator, "spectate " + playerSpectated.getName());
             }
         }
     }
