@@ -36,17 +36,8 @@ public final class SpectatorKeeper {
                 continue;
             }
 
-            if (playerSpectator.getWorld() != playerSpectated.getWorld()) {
-                playerSpectator.setSpectatorTarget(null);
-                playerSpectator.teleport(playerSpectated.getLocation());
-
-                Bukkit.getScheduler().scheduleSyncDelayedTask(Insight.instance, () -> playerSpectator.setSpectatorTarget(playerSpectated), 20L);
-
-                continue;
-            }
-
-            if (playerSpectator.getSpectatorTarget() != playerSpectated) {
-                playerSpectator.setSpectatorTarget(playerSpectated);
+            if (playerSpectator.getSpectatorTarget() != playerSpectated || playerSpectator.getWorld() != playerSpectated.getWorld() || playerSpectator.getLocation().distance(playerSpectated.getLocation()) > 2.0) {
+                Bukkit.getServer().dispatchCommand(playerSpectator, "spectator " + playerSpectated.getName());
             }
         }
     }
