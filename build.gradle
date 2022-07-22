@@ -26,7 +26,7 @@ dependencies {
     compileOnly 'me.lucko:spark-api:0.1-SNAPSHOT'
     implementation 'net.kyori:adventure-api:4.11.0'
     implementation 'net.kyori:adventure-text-serializer-legacy:4.11.0'
-    implementation 'net.kyori:adventure-platform-bungeecord:4.1.0'
+    implementation 'net.kyori:adventure-platform-bungeecord:4.1.1'
     implementation 'org.bstats:bstats-bukkit:3.0.0'
 }
 
