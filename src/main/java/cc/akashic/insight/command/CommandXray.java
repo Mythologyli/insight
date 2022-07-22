@@ -34,16 +34,16 @@ public final class CommandXray implements CommandExecutor {
 
         switch (args[1]) {
             case "inventory" -> {
-                items = player.getInventory().getContents();
+                items = player.getInventory().getContents().clone();
                 inventorySize = 45;
             }
             case "enderchest" -> {
-                items = player.getEnderChest().getContents();
+                items = player.getEnderChest().getContents().clone();
                 inventorySize = 27;
             }
             case "hand" -> {
                 items = new ItemStack[1];
-                items[0] = player.getInventory().getItemInMainHand();
+                items[0] = player.getInventory().getItemInMainHand().clone();
                 inventorySize = 9;
             }
             default -> {

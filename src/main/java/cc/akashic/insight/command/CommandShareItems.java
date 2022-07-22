@@ -33,7 +33,7 @@ public final class CommandShareItems implements CommandExecutor {
         ItemStack[] items; // Items to share/view.
 
         if (args.length == 0) { // No args means sharing the inventory of the sender.
-            items = player.getInventory().getContents();
+            items = player.getInventory().getContents().clone();
             String commandRandomString = RandomString.getRandomString(8); // Generate random string for /shareitems view ... command.
 
             // Add share.
@@ -57,7 +57,7 @@ public final class CommandShareItems implements CommandExecutor {
                     }
 
                     items = new ItemStack[1];
-                    items[0] = player.getInventory().getItemInMainHand();
+                    items[0] = player.getInventory().getItemInMainHand().clone();
                     String commandRandomString = RandomString.getRandomString(8);
 
                     protectedShareSet.put(commandRandomString, items);
