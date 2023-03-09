@@ -2,7 +2,6 @@ package cc.akashic.insight.utils;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -10,7 +9,6 @@ import java.util.HashMap;
 
 public final class ListNameEditor {
     private static final HashMap<String, String[]> playerListNameMap = new HashMap<>();
-    private static final LegacyComponentSerializer legacyComponentSerializer = LegacyComponentSerializer.builder().build();
 
     public static void setPlayerListNamePrefix(Player player, String prefix) {
         String playerName = player.getName();
@@ -23,7 +21,7 @@ public final class ListNameEditor {
         }
 
         playerListNameMap.put(playerName, extraList);
-        player.setPlayerListName(legacyComponentSerializer.serialize(Component.text(extraList[0], NamedTextColor.YELLOW).append(Component.text(playerName, NamedTextColor.WHITE)).append(Component.text(extraList[1], NamedTextColor.LIGHT_PURPLE))));
+        player.playerListName(Component.text(extraList[0], NamedTextColor.YELLOW).append(Component.text(playerName, NamedTextColor.WHITE)).append(Component.text(extraList[1], NamedTextColor.LIGHT_PURPLE)));
     }
 
     public static void setPlayerListNameSuffix(Player player, String suffix) {
@@ -37,6 +35,6 @@ public final class ListNameEditor {
         }
 
         playerListNameMap.put(playerName, extraList);
-        player.setPlayerListName(legacyComponentSerializer.serialize(Component.text(extraList[0], NamedTextColor.YELLOW).append(Component.text(playerName, NamedTextColor.WHITE)).append(Component.text(extraList[1], NamedTextColor.LIGHT_PURPLE))));
+        player.playerListName(Component.text(extraList[0], NamedTextColor.YELLOW).append(Component.text(playerName, NamedTextColor.WHITE)).append(Component.text(extraList[1], NamedTextColor.LIGHT_PURPLE)));
     }
 }

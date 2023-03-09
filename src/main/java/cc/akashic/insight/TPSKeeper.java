@@ -6,7 +6,6 @@ import me.lucko.spark.api.statistic.StatisticWindow;
 import me.lucko.spark.api.statistic.types.DoubleStatistic;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.*;
 import org.bukkit.entity.SpawnCategory;
 import org.bukkit.event.EventHandler;
@@ -25,7 +24,6 @@ public final class TPSKeeper {
     private static int originMonsterSpawnLimit;
     private static boolean isInTPSKeepMode = false;
     private static boolean isInForceTPSKeepMode = false;
-    private static final LegacyComponentSerializer legacyComponentSerializer = LegacyComponentSerializer.builder().build();
 
     /**
      * Get Spark Plugin.
@@ -127,14 +125,14 @@ public final class TPSKeeper {
 
                 enableTPSKeepMode();
 
-                Bukkit.broadcastMessage(legacyComponentSerializer.serialize(Component.text("WARNING: LOW TPS! TPS KEEP MODE ENABLE!", NamedTextColor.RED)));
+                Bukkit.broadcast(Component.text("WARNING: LOW TPS! TPS KEEP MODE ENABLE!", NamedTextColor.RED));
             }
         } else if (isInTPSKeepMode) {
             isInTPSKeepMode = false;
 
             disableTPSKeepMode();
 
-            Bukkit.broadcastMessage(legacyComponentSerializer.serialize(Component.text("TPS KEEP MODE DISABLE!", NamedTextColor.GREEN)));
+            Bukkit.broadcast(Component.text("TPS KEEP MODE DISABLE!", NamedTextColor.GREEN));
         }
     }
 

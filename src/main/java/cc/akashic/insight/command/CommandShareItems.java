@@ -6,7 +6,6 @@ import cc.akashic.insight.utils.RandomString;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.serializer.bungeecord.BungeeComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -20,7 +19,6 @@ import java.util.HashMap;
 
 public final class CommandShareItems implements CommandExecutor {
     private static final HashMap<String, ItemStack[]> protectedShareSet = new HashMap<>();
-    private static final BungeeComponentSerializer bungeeComponentSerializer = BungeeComponentSerializer.get();
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
@@ -44,10 +42,10 @@ public final class CommandShareItems implements CommandExecutor {
             // Send message to all players.
             Collection<? extends Player> players = Bukkit.getOnlinePlayers();
             for (Player everyPlayer : players) {
-                everyPlayer.spigot().sendMessage(bungeeComponentSerializer.serialize(Component.text("Player ", NamedTextColor.AQUA).append(Component.text(player.getName(), NamedTextColor.DARK_PURPLE).append(Component.text(" shared his inventory!", NamedTextColor.AQUA)))));
+                everyPlayer.sendMessage(Component.text("Player ", NamedTextColor.AQUA).append(Component.text(player.getName(), NamedTextColor.DARK_PURPLE).append(Component.text(" shared his inventory!", NamedTextColor.AQUA))));
 
                 // Send the clickable text.
-                everyPlayer.spigot().sendMessage(bungeeComponentSerializer.serialize(Component.text("[Click here]", NamedTextColor.GREEN).clickEvent(ClickEvent.runCommand("/shareitems view " + commandRandomString)).append(Component.text(" to view."))));
+                everyPlayer.sendMessage(Component.text("[Click here]", NamedTextColor.GREEN).clickEvent(ClickEvent.runCommand("/shareitems view " + commandRandomString)).append(Component.text(" to view.")));
             }
         } else {
             switch (args[0]) {
@@ -66,10 +64,9 @@ public final class CommandShareItems implements CommandExecutor {
 
                     Collection<? extends Player> players = Bukkit.getOnlinePlayers();
                     for (Player everyPlayer : players) {
-                        everyPlayer.spigot().sendMessage(bungeeComponentSerializer.serialize(Component.text("Player ", NamedTextColor.AQUA).append(Component.text(player.getName(), NamedTextColor.DARK_PURPLE).append(Component.text(" shared his items in hand!", NamedTextColor.AQUA)))));
-
+                        everyPlayer.sendMessage(Component.text("Player ", NamedTextColor.AQUA).append(Component.text(player.getName(), NamedTextColor.DARK_PURPLE).append(Component.text(" shared his items in hand!", NamedTextColor.AQUA))));
                         // Send the clickable text.
-                        everyPlayer.spigot().sendMessage(bungeeComponentSerializer.serialize(Component.text("[Click here]", NamedTextColor.GREEN).clickEvent(ClickEvent.runCommand("/shareitems view " + commandRandomString)).append(Component.text(" to view."))));
+                        everyPlayer.sendMessage(Component.text("[Click here]", NamedTextColor.GREEN).clickEvent(ClickEvent.runCommand("/shareitems view " + commandRandomString)).append(Component.text(" to view.")));
                     }
                 }
                 case "view" -> {

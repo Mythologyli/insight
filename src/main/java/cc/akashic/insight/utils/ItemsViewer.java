@@ -1,6 +1,7 @@
 package cc.akashic.insight.utils;
 
 import cc.akashic.insight.Insight;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -65,7 +66,7 @@ public final class ItemsViewer {
      * @param ticks        when to close the inventory
      */
     public static void guiToPlayer(ItemStack[] items, Player playerToSend, int size, String title, long ticks) {
-        Inventory inventory = Bukkit.createInventory(null, size, title);
+        Inventory inventory = Bukkit.createInventory(null, size, Component.text(title));
 
         for (ItemStack item : items) {
             if (item != null) {

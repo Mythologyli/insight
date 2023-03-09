@@ -1,5 +1,6 @@
 package cc.akashic.insight.utils;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -27,7 +28,7 @@ public final class PlayerHead {
         SkullMeta headMeta = (SkullMeta) head.getItemMeta();
         assert headMeta != null;
         headMeta.setOwningPlayer(offlinePlayer);
-        headMeta.setDisplayName(displayName);
+        headMeta.displayName(Component.text(displayName));
         head.setItemMeta(headMeta);
 
         return head;
