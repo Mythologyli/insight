@@ -31,18 +31,41 @@ public final class CommandInsight implements CommandExecutor {
             }
 
             case "stat" -> {
-                OfflinePlayer[] offlinePlayers = Bukkit.getOfflinePlayers();
-
                 if (args.length == 1) {
                     return false;
                 }
+
+                OfflinePlayer[] offlinePlayers = Bukkit.getOfflinePlayers();
+                OfflinePlayer[] bestTenPlayers = new OfflinePlayer[10];
 
                 switch (args[1]) {
                     case "playoneminute" -> {
                         for (OfflinePlayer offlinePlayer : offlinePlayers) {
                             int playOneMinute = offlinePlayer.getStatistic(Statistic.PLAY_ONE_MINUTE);
 
-                            Log.info("STAT|PLAY_ONE_MINUTE|" + offlinePlayer.getName() + "|" + playOneMinute);
+                            for (int i = 0; i < 10; i++) {
+                                if (bestTenPlayers[i] == null) {
+                                    bestTenPlayers[i] = offlinePlayer;
+                                    break;
+                                }
+
+                                if (bestTenPlayers[i].getStatistic(Statistic.PLAY_ONE_MINUTE) < playOneMinute) {
+                                    for (int j = 9; j > i; j--) {
+                                        bestTenPlayers[j] = bestTenPlayers[j - 1];
+                                    }
+
+                                    bestTenPlayers[i] = offlinePlayer;
+                                    break;
+                                }
+                            }
+                        }
+
+                        for (int i = 0; i < 10; i++) {
+                            if (bestTenPlayers[i] == null) {
+                                break;
+                            }
+
+                            Log.info("STAT|PLAY_ONE_MINUTE|" + bestTenPlayers[i].getName() + "|" + bestTenPlayers[i].getStatistic(Statistic.PLAY_ONE_MINUTE));
                         }
                     }
 
@@ -50,7 +73,29 @@ public final class CommandInsight implements CommandExecutor {
                         for (OfflinePlayer offlinePlayer : offlinePlayers) {
                             int deaths = offlinePlayer.getStatistic(Statistic.DEATHS);
 
-                            Log.info("STAT|DEATHS|" + offlinePlayer.getName() + "|" + deaths);
+                            for (int i = 0; i < 10; i++) {
+                                if (bestTenPlayers[i] == null) {
+                                    bestTenPlayers[i] = offlinePlayer;
+                                    break;
+                                }
+
+                                if (bestTenPlayers[i].getStatistic(Statistic.DEATHS) > deaths) {
+                                    for (int j = 9; j > i; j--) {
+                                        bestTenPlayers[j] = bestTenPlayers[j - 1];
+                                    }
+
+                                    bestTenPlayers[i] = offlinePlayer;
+                                    break;
+                                }
+                            }
+                        }
+
+                        for (int i = 0; i < 10; i++) {
+                            if (bestTenPlayers[i] == null) {
+                                break;
+                            }
+
+                            Log.info("STAT|DEATHS|" + bestTenPlayers[i].getName() + "|" + bestTenPlayers[i].getStatistic(Statistic.DEATHS));
                         }
                     }
 
@@ -58,7 +103,29 @@ public final class CommandInsight implements CommandExecutor {
                         for (OfflinePlayer offlinePlayer : offlinePlayers) {
                             int mobKills = offlinePlayer.getStatistic(Statistic.MOB_KILLS);
 
-                            Log.info("STAT|MOB_KILLS|" + offlinePlayer.getName() + "|" + mobKills);
+                            for (int i = 0; i < 10; i++) {
+                                if (bestTenPlayers[i] == null) {
+                                    bestTenPlayers[i] = offlinePlayer;
+                                    break;
+                                }
+
+                                if (bestTenPlayers[i].getStatistic(Statistic.MOB_KILLS) < mobKills) {
+                                    for (int j = 9; j > i; j--) {
+                                        bestTenPlayers[j] = bestTenPlayers[j - 1];
+                                    }
+
+                                    bestTenPlayers[i] = offlinePlayer;
+                                    break;
+                                }
+                            }
+                        }
+
+                        for (int i = 0; i < 10; i++) {
+                            if (bestTenPlayers[i] == null) {
+                                break;
+                            }
+
+                            Log.info("STAT|MOB_KILLS|" + bestTenPlayers[i].getName() + "|" + bestTenPlayers[i].getStatistic(Statistic.MOB_KILLS));
                         }
                     }
 
@@ -66,7 +133,29 @@ public final class CommandInsight implements CommandExecutor {
                         for (OfflinePlayer offlinePlayer : offlinePlayers) {
                             int pickUpDiamond = offlinePlayer.getStatistic(Statistic.PICKUP, Material.DIAMOND);
 
-                            Log.info("STAT|PICKUP_DIAMOND|" + offlinePlayer.getName() + "|" + pickUpDiamond);
+                            for (int i = 0; i < 10; i++) {
+                                if (bestTenPlayers[i] == null) {
+                                    bestTenPlayers[i] = offlinePlayer;
+                                    break;
+                                }
+
+                                if (bestTenPlayers[i].getStatistic(Statistic.PICKUP, Material.DIAMOND) < pickUpDiamond) {
+                                    for (int j = 9; j > i; j--) {
+                                        bestTenPlayers[j] = bestTenPlayers[j - 1];
+                                    }
+
+                                    bestTenPlayers[i] = offlinePlayer;
+                                    break;
+                                }
+                            }
+                        }
+
+                        for (int i = 0; i < 10; i++) {
+                            if (bestTenPlayers[i] == null) {
+                                break;
+                            }
+
+                            Log.info("STAT|PICKUP_DIAMOND|" + bestTenPlayers[i].getName() + "|" + bestTenPlayers[i].getStatistic(Statistic.PICKUP, Material.DIAMOND));
                         }
                     }
 
@@ -74,7 +163,29 @@ public final class CommandInsight implements CommandExecutor {
                         for (OfflinePlayer offlinePlayer : offlinePlayers) {
                             int mineNetherrack = offlinePlayer.getStatistic(Statistic.MINE_BLOCK, Material.NETHERRACK);
 
-                            Log.info("STAT|MINE_NETHERRACK|" + offlinePlayer.getName() + "|" + mineNetherrack);
+                            for (int i = 0; i < 10; i++) {
+                                if (bestTenPlayers[i] == null) {
+                                    bestTenPlayers[i] = offlinePlayer;
+                                    break;
+                                }
+
+                                if (bestTenPlayers[i].getStatistic(Statistic.MINE_BLOCK, Material.NETHERRACK) < mineNetherrack) {
+                                    for (int j = 9; j > i; j--) {
+                                        bestTenPlayers[j] = bestTenPlayers[j - 1];
+                                    }
+
+                                    bestTenPlayers[i] = offlinePlayer;
+                                    break;
+                                }
+                            }
+                        }
+
+                        for (int i = 0; i < 10; i++) {
+                            if (bestTenPlayers[i] == null) {
+                                break;
+                            }
+
+                            Log.info("STAT|MINE_NETHERRACK|" + bestTenPlayers[i].getName() + "|" + bestTenPlayers[i].getStatistic(Statistic.MINE_BLOCK, Material.NETHERRACK));
                         }
                     }
 
@@ -82,7 +193,29 @@ public final class CommandInsight implements CommandExecutor {
                         for (OfflinePlayer offlinePlayer : offlinePlayers) {
                             int mineDeepslate = offlinePlayer.getStatistic(Statistic.MINE_BLOCK, Material.DEEPSLATE);
 
-                            Log.info("STAT|MINE_DEEPSLATE|" + offlinePlayer.getName() + "|" + mineDeepslate);
+                            for (int i = 0; i < 10; i++) {
+                                if (bestTenPlayers[i] == null) {
+                                    bestTenPlayers[i] = offlinePlayer;
+                                    break;
+                                }
+
+                                if (bestTenPlayers[i].getStatistic(Statistic.MINE_BLOCK, Material.DEEPSLATE) < mineDeepslate) {
+                                    for (int j = 9; j > i; j--) {
+                                        bestTenPlayers[j] = bestTenPlayers[j - 1];
+                                    }
+
+                                    bestTenPlayers[i] = offlinePlayer;
+                                    break;
+                                }
+                            }
+                        }
+
+                        for (int i = 0; i < 10; i++) {
+                            if (bestTenPlayers[i] == null) {
+                                break;
+                            }
+
+                            Log.info("STAT|MINE_DEEPSLATE|" + bestTenPlayers[i].getName() + "|" + bestTenPlayers[i].getStatistic(Statistic.MINE_BLOCK, Material.DEEPSLATE));
                         }
                     }
 
@@ -90,7 +223,29 @@ public final class CommandInsight implements CommandExecutor {
                         for (OfflinePlayer offlinePlayer : offlinePlayers) {
                             int mineAncientDebris = offlinePlayer.getStatistic(Statistic.MINE_BLOCK, Material.ANCIENT_DEBRIS);
 
-                            Log.info("STAT|MINE_ANCIENT_DEBRIS|" + offlinePlayer.getName() + "|" + mineAncientDebris);
+                            for (int i = 0; i < 10; i++) {
+                                if (bestTenPlayers[i] == null) {
+                                    bestTenPlayers[i] = offlinePlayer;
+                                    break;
+                                }
+
+                                if (bestTenPlayers[i].getStatistic(Statistic.MINE_BLOCK, Material.ANCIENT_DEBRIS) < mineAncientDebris) {
+                                    for (int j = 9; j > i; j--) {
+                                        bestTenPlayers[j] = bestTenPlayers[j - 1];
+                                    }
+
+                                    bestTenPlayers[i] = offlinePlayer;
+                                    break;
+                                }
+                            }
+                        }
+
+                        for (int i = 0; i < 10; i++) {
+                            if (bestTenPlayers[i] == null) {
+                                break;
+                            }
+
+                            Log.info("STAT|MINE_ANCIENT_DEBRIS|" + bestTenPlayers[i].getName() + "|" + bestTenPlayers[i].getStatistic(Statistic.MINE_BLOCK, Material.ANCIENT_DEBRIS));
                         }
                     }
 
