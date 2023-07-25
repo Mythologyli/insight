@@ -54,7 +54,7 @@ public final class AFK {
                 ListNameEditor.setPlayerListNamePrefix(player, "");
                 player.setSleepingIgnored(false);
 
-                Bukkit.broadcast(msg);
+//                Bukkit.broadcast(msg);
             }
         }
     }
@@ -72,7 +72,7 @@ public final class AFK {
                 ListNameEditor.setPlayerListNamePrefix(player, "[AFK]");
                 player.setSleepingIgnored(true);
 
-                Bukkit.broadcast(Component.text(playerName + " is away from keyboard!", NamedTextColor.YELLOW));
+//                Bukkit.broadcast(Component.text(playerName + " is away from keyboard!", NamedTextColor.YELLOW));
             }
         }
 

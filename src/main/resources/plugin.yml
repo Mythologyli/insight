@@ -1,9 +1,9 @@
 name: Insight
-version: 1.2
+version: 1.3
 main: cc.akashic.insight.Insight
-api-version: 1.19
+api-version: '1.20'
 authors: [ Myth ]
-description: A Spigot plugin to display Minecraft event text in console.
+description: A Paper plugin to display Minecraft event text in console.
 website: mc.akashic.cc
 softdepend: [ spark ]
 
@@ -64,6 +64,23 @@ commands:
       /<command> off
     permission: insight.keepspectator
 
+  disableend:
+    description: Command of Insight Disable End.
+    usage: |
+      /<command>
+    permission: insight.disableend
+
+  enableend:
+    description: Command of Insight Enable End.
+    usage: |
+      /<command>
+    permission: insight.enableend
+
+  players:
+    description: Command of Insight Players.
+    usage: |
+      /<command>
+    permission: insight.players
 
 permissions:
   insight.insight:
@@ -95,4 +112,13 @@ permissions:
     default: true
   insight.keepspectator:
     description: Allows command of Insight Spectator Keeper.
+    default: op
+  insight.disableend:
+    description: Allows command of Insight Disable End.
+    default: op
+  insight.enableend:
+    description: Allows command of Insight Enable End.
+    default: op
+  insight.players:
+    description: Allows command of Insight Players.
     default: op

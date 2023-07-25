@@ -79,7 +79,7 @@ public final class CommandInsight implements CommandExecutor {
                                     break;
                                 }
 
-                                if (bestTenPlayers[i].getStatistic(Statistic.DEATHS) > deaths) {
+                                if (bestTenPlayers[i].getStatistic(Statistic.DEATHS) < deaths) {
                                     for (int j = 9; j > i; j--) {
                                         bestTenPlayers[j] = bestTenPlayers[j - 1];
                                     }

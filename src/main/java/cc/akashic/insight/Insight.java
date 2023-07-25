@@ -55,6 +55,9 @@ public final class Insight extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("slogan")).setExecutor(new CommandSlogan());
         Objects.requireNonNull(this.getCommand("leader")).setExecutor(new CommandLeader());
         Objects.requireNonNull(this.getCommand("keepspectator")).setExecutor(new CommandKeepSpectator());
+        Objects.requireNonNull(this.getCommand("disableend")).setExecutor(new CommandDisableEnd());
+        Objects.requireNonNull(this.getCommand("enableend")).setExecutor(new CommandEnableEnd());
+        Objects.requireNonNull(this.getCommand("players")).setExecutor(new CommandPlayers());
 
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new EventBroadcastListener(), this);
@@ -65,6 +68,7 @@ public final class Insight extends JavaPlugin {
         pluginManager.registerEvents(new JoinPrivateMessenger.EventListener(), this);
         pluginManager.registerEvents(new LeaderBoard.EventListener(), this);
         pluginManager.registerEvents(new ItemsViewer.EventListener(), this);
+        pluginManager.registerEvents(new DisableEnd.EventListener(), this);
 
         BukkitScheduler bukkitScheduler = Bukkit.getScheduler();
         bukkitScheduler.scheduleSyncRepeatingTask(this, AFK::task, 200L, 1200L);

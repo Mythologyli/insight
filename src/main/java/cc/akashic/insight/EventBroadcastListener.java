@@ -53,6 +53,10 @@ public final class EventBroadcastListener implements Listener {
             }
         }
 
+        if (advancementString.equals("")) {
+            return;
+        }
+
         Log.info("EVENT|ADVANCEMENT|" + player.getName() + "|" + advancementString);
     }
 

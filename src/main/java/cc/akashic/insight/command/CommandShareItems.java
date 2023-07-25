@@ -13,6 +13,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -31,7 +32,17 @@ public final class CommandShareItems implements CommandExecutor {
         ItemStack[] items; // Items to share/view.
 
         if (args.length == 0) { // No args means sharing the inventory of the sender.
-            items = player.getInventory().getContents().clone();
+            @Nullable ItemStack @NotNull [] player_items = player.getInventory().getContents();
+
+            // Deep copy the array.
+            items = new ItemStack[player_items.length];
+            for (int i = 0, j = 0; i < player_items.length; i++) {
+                if (player_items[i] != null) {
+                    items[j] = player_items[i].clone();
+                    j++;
+                }
+            }
+
             String commandRandomString = RandomString.getRandomString(8); // Generate random string for /shareitems view ... command.
 
             // Add share.

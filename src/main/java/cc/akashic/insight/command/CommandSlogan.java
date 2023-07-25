@@ -30,6 +30,12 @@ public final class CommandSlogan implements CommandExecutor {
                 }
                 slogan.append(args[i]);
 
+                // Check if slogan is too long
+                if (slogan.length() > 16) {
+                    sender.sendMessage("Slogan is longer than 16 characters!");
+                    return true;
+                }
+
                 Slogan.setPlayerSlogan((Player) sender, slogan.toString());
             }
 
