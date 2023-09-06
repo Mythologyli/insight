@@ -87,6 +87,10 @@ public final class AFK {
         activePlayerSet.clear();
     }
 
+    public static boolean isPlayerAFK(Player player) {
+        return AFKPlayerSet.contains(player);
+    }
+
     public static final class EventListener implements Listener {
         @EventHandler(priority = EventPriority.LOWEST)
         public void onPlayerJoin(PlayerJoinEvent event) {

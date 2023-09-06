@@ -1,5 +1,6 @@
 package cc.akashic.insight.command;
 
+import cc.akashic.insight.AFK;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,11 +14,14 @@ public class CommandPlayers implements CommandExecutor {
         StringBuilder text = new StringBuilder("PLAYERS|");
 
         for (Player player : Bukkit.getOnlinePlayers()) {
-            int ping = player.getPing();
-
-            float hearts = (float) (Math.ceil(player.getHealth()) / 2.0);
-
-            text.append(player.getName()).append(",").append(hearts).append(",").append(ping).append(";");
+            text.append(player.getName())
+                    .append(",")
+                    .append((float) (Math.ceil(player.getHealth()) / 2.0))
+                    .append(",")
+                    .append(player.getPing())
+                    .append(",")
+                    .append(AFK.isPlayerAFK(player))
+                    .append(";");
         }
 
         sender.sendMessage(text.toString());
