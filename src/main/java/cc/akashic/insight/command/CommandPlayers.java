@@ -8,6 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class CommandPlayers implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
@@ -21,6 +23,8 @@ public class CommandPlayers implements CommandExecutor {
                     .append(player.getPing())
                     .append(",")
                     .append(AFK.isPlayerAFK(player))
+                    .append(",")
+                    .append(Objects.requireNonNull(player.getAddress()).getAddress().getHostAddress())
                     .append(";");
         }
 
