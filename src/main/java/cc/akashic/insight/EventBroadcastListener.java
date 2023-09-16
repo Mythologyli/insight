@@ -35,7 +35,7 @@ public final class EventBroadcastListener implements Listener {
         }
 
         Location location = player.getLocation();
-        var locationString = location.getX() + "," + location.getY() + "," + location.getZ();
+        var locationString = location.getX() + "," + location.getY() + "," + location.getZ() + "," + location.getWorld().getName();
 
         Log.info("EVENT|DEAD|" + player.getName() + "|" + componentString + "|" + player.getLevel() + "|" + locationString);
     }
