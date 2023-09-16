@@ -34,7 +34,10 @@ public final class EventBroadcastListener implements Listener {
             componentString.append("T,").append(PlainTextComponentSerializer.plainText().serialize(deathMessage));
         }
 
-        Log.info("EVENT|DEAD|" + player.getName() + "|" + componentString + "|" + player.getLevel());
+        Location location = player.getLocation();
+        var locationString = location.getX() + "," + location.getY() + "," + location.getZ();
+
+        Log.info("EVENT|DEAD|" + player.getName() + "|" + componentString + "|" + player.getLevel() + "|" + locationString);
     }
 
     @EventHandler
