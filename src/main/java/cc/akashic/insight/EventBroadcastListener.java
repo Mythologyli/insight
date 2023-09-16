@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.raid.RaidTriggerEvent;
 
 import java.util.List;
@@ -38,7 +37,7 @@ public final class EventBroadcastListener implements Listener {
         }
 
         Location location = player.getLocation();
-        var locationString = location.getX() + "," + location.getY() + "," + location.getZ() + "," + location.getWorld().getName();
+        String locationString = location.getX() + "," + location.getY() + "," + location.getZ() + "," + location.getWorld().getName();
 
         Log.info("EVENT|DEAD|" + player.getName() + "|" + componentString + "|" + player.getLevel() + "|" + locationString);
     }
