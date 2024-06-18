@@ -65,7 +65,7 @@ public final class ItemsViewer {
      * @param ticks        when to close the inventory
      */
     public static void guiToPlayer(ItemStack[] items, Player playerToSend, int size, String title, long ticks) {
-        Inventory inventory = Bukkit.createInventory(null, size, title);
+        Inventory inventory = Bukkit.createInventory(null, size);
 
         for (ItemStack item : items) {
             if (item != null) {

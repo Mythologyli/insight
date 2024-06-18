@@ -35,7 +35,7 @@ public final class LeaderBoard {
     }
 
     private static void selectStatisticToPlayer(Player player, Material material) {
-        Inventory inventory = Bukkit.createInventory(null, 9, "Select Statistic Type");
+        Inventory inventory = Bukkit.createInventory(null, 9);
 
         inventory.addItem(new ItemStack(material));
         inventory.addItem(new ItemStack(Material.BARRIER));
