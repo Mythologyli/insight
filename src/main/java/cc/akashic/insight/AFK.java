@@ -1,6 +1,7 @@
 package cc.akashic.insight;
 
 import cc.akashic.insight.utils.ListNameEditor;
+import cc.akashic.insight.utils.Vanished;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -65,6 +66,9 @@ public final class AFK {
     public static void task() {
         Collection<? extends Player> players = Bukkit.getOnlinePlayers();
         for (Player player : players) {
+            if (Vanished.isVanished(player)) {
+                continue;
+            }
             String playerName = player.getName();
 
             if (!activePlayerSet.contains(player) && !AFKPlayerSet.contains(player)) {

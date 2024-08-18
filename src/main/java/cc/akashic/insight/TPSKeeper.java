@@ -10,7 +10,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.GameRule;
 import org.bukkit.World;
-import org.bukkit.entity.Player;
 import org.bukkit.entity.SpawnCategory;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -21,8 +20,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import static cc.akashic.insight.AFK.AFKPlayerSet;
 
 public final class TPSKeeper {
     private static Spark spark;
@@ -92,9 +89,9 @@ public final class TPSKeeper {
         world.setSpawnLimit(SpawnCategory.MONSTER, originMonsterSpawnLimit / 2);
 
         // Kick all AFK players.
-        for (Player player : AFKPlayerSet) {
-            player.kick(Component.text("Kicked by TPS Keep Mode."));
-        }
+//        for (Player player : AFKPlayerSet) {
+//            player.kick(Component.text("Kicked by TPS Keep Mode."));
+//        }
     }
 
     public static void disableTPSKeepMode() {

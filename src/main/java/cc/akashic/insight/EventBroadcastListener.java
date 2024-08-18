@@ -1,5 +1,6 @@
 package cc.akashic.insight;
 
+import cc.akashic.insight.utils.Vanished;
 import net.kyori.adventure.text.TranslatableComponent;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Location;
@@ -14,6 +15,9 @@ public final class EventBroadcastListener implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
+        if (Vanished.isVanished(player)) {
+            return;
+        }
         var deathMessage = event.deathMessage();
 
         StringBuilder componentString = new StringBuilder();
@@ -43,6 +47,9 @@ public final class EventBroadcastListener implements Listener {
     @EventHandler
     public void onPlayerAdvancementDone(PlayerAdvancementDoneEvent event) {
         Player player = event.getPlayer();
+        if (Vanished.isVanished(player)) {
+            return;
+        }
         var advancementDisplay = event.getAdvancement().displayName();
         String advancementString = "";
 
@@ -66,6 +73,9 @@ public final class EventBroadcastListener implements Listener {
     @EventHandler
     public void onRaidTrigger(RaidTriggerEvent event) {
         Player player = event.getPlayer();
+        if (Vanished.isVanished(player)) {
+            return;
+        }
         Location location = player.getLocation();
 
         Log.info("EVENT|RAIDTRIGGER|" + player.getName() + "|" + location.getX() + "," + location.getY() + "," + location.getZ());

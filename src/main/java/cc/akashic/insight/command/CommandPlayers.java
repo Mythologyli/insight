@@ -1,6 +1,7 @@
 package cc.akashic.insight.command;
 
 import cc.akashic.insight.AFK;
+import cc.akashic.insight.utils.Vanished;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -25,6 +26,8 @@ public class CommandPlayers implements CommandExecutor {
                     .append(AFK.isPlayerAFK(player))
                     .append(",")
                     .append(Objects.requireNonNull(player.getAddress()).getAddress().getHostAddress())
+                    .append(",")
+                    .append(Vanished.isVanished(player))
                     .append(";");
         }
 
