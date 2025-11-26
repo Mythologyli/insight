@@ -39,6 +39,11 @@ public final class Insight extends JavaPlugin {
             saveResource("tps.txt", false);
         }
 
+        File lineFile = new File(dataFolder + "/line.yml");
+        if (!lineFile.exists()) {
+            saveResource("line.yml", false);
+        }
+
         boolean isSparkExist = TPSKeeper.getSpark();
         TPSKeeper.getWorld();
         TPSKeeper.saveOriginMonsterSpawnLimit();

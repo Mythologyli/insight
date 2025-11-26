@@ -34,7 +34,7 @@ public final class AFK {
 
             if (AFKPlayerSet.contains(player)) {
                 AFKPlayerSet.remove(player);
-                ListNameEditor.setPlayerListNamePrefix(player, "");
+                ListNameEditor.setPlayerListNameAFKPrefix(player, "");
                 player.setSleepingIgnored(false);
             }
         }
@@ -52,7 +52,7 @@ public final class AFK {
 
             if (AFKPlayerSet.contains(player)) {
                 AFKPlayerSet.remove(player);
-                ListNameEditor.setPlayerListNamePrefix(player, "");
+                ListNameEditor.setPlayerListNameAFKPrefix(player, "");
                 player.setSleepingIgnored(false);
 
 //                Bukkit.broadcast(msg);
@@ -73,7 +73,7 @@ public final class AFK {
 
             if (!activePlayerSet.contains(player) && !AFKPlayerSet.contains(player)) {
                 AFKPlayerSet.add(player);
-                ListNameEditor.setPlayerListNamePrefix(player, "[AFK]");
+                ListNameEditor.setPlayerListNameAFKPrefix(player, "[AFK]");
                 player.setSleepingIgnored(true);
 
 //                Bukkit.broadcast(Component.text(playerName + " is away from keyboard!", NamedTextColor.YELLOW));

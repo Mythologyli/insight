@@ -21,7 +21,7 @@ public final class Slogan {
 
         Collection<? extends Player> players = Bukkit.getOnlinePlayers();
         for (Player player : players) {
-            ListNameEditor.setPlayerListNameSuffix(player, config.getString("Slogan." + player.getName(), ""));
+            ListNameEditor.setPlayerListNameSloganSuffix(player, config.getString("Slogan." + player.getName(), ""));
         }
     }
 
@@ -35,12 +35,12 @@ public final class Slogan {
 
     public static void setPlayerSlogan(Player player, String slogan) {
         slogan = "[" + slogan + "]";
-        ListNameEditor.setPlayerListNameSuffix(player, slogan);
+        ListNameEditor.setPlayerListNameSloganSuffix(player, slogan);
         config.set("Slogan." + player.getName(), slogan);
     }
 
     public static void clearPlayerSlogan(Player player) {
-        ListNameEditor.setPlayerListNameSuffix(player, "");
+        ListNameEditor.setPlayerListNameSloganSuffix(player, "");
         config.set("Slogan." + player.getName(), "");
     }
 
@@ -48,7 +48,7 @@ public final class Slogan {
         @EventHandler(priority = EventPriority.LOWEST)
         public void onPlayerJoin(PlayerJoinEvent event) {
             Player player = event.getPlayer();
-            ListNameEditor.setPlayerListNameSuffix(player, config.getString("Slogan." + player.getName(), ""));
+            ListNameEditor.setPlayerListNameSloganSuffix(player, config.getString("Slogan." + player.getName(), ""));
         }
     }
 }
