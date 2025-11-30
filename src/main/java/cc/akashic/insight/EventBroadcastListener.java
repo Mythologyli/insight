@@ -9,9 +9,32 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerAdvancementDoneEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.raid.RaidTriggerEvent;
 
+import java.net.InetSocketAddress;
+import java.util.Objects;
+
 public final class EventBroadcastListener implements Listener {
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        if (Vanished.isVanished(player)) {
+            return;
+        }
+
+        String addressString = Objects.requireNonNull(player.getAddress()).getAddress().getHostAddress();
+        InetSocketAddress haProxyAddress = player.getHAProxyAddress();
+        String haProxyAddressString;
+        if (haProxyAddress != null) {
+            haProxyAddressString = haProxyAddress.getAddress().getHostAddress();
+        } else {
+            haProxyAddressString = "null";
+        }
+
+        Log.info("EVENT|JOIN|" + player.getName() + "|" + addressString + "|" + haProxyAddressString);
+    }
+
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
