@@ -51,8 +51,6 @@ public final class Insight extends JavaPlugin {
 
         Slogan.loadSlogan();
 
-        CustomRecipe.addRecipe();
-
         Objects.requireNonNull(this.getCommand("insight")).setExecutor(new CommandInsight());
         Objects.requireNonNull(this.getCommand("xray")).setExecutor(new CommandXray());
         Objects.requireNonNull(this.getCommand("shareitems")).setExecutor(new CommandShareItems());
@@ -69,7 +67,6 @@ public final class Insight extends JavaPlugin {
         pluginManager.registerEvents(new AFK.EventListener(), this);
         pluginManager.registerEvents(new TPSKeeper.EventListener(), this);
         pluginManager.registerEvents(new Slogan.EventListener(), this);
-        pluginManager.registerEvents(new CustomRecipe.EventListener(), this);
         pluginManager.registerEvents(new JoinPrivateMessenger.EventListener(), this);
         pluginManager.registerEvents(new LeaderBoard.EventListener(), this);
         pluginManager.registerEvents(new ItemsViewer.EventListener(), this);
