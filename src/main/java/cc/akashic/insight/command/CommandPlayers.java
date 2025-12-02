@@ -1,7 +1,10 @@
 package cc.akashic.insight.command;
 
 import cc.akashic.insight.AFK;
+import cc.akashic.insight.utils.ItemsViewer;
 import cc.akashic.insight.utils.Vanished;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,6 +18,11 @@ import java.util.Objects;
 public class CommandPlayers implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
+        if (sender instanceof Player) {
+            sender.sendMessage(Component.text("You need to run this command in console!", NamedTextColor.RED));
+            return true;
+        }
+
         StringBuilder text = new StringBuilder("PLAYERS|");
 
         for (Player player : Bukkit.getOnlinePlayers()) {
