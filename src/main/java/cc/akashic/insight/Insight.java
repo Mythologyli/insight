@@ -75,6 +75,7 @@ public final class Insight extends JavaPlugin {
         BukkitScheduler bukkitScheduler = Bukkit.getScheduler();
         bukkitScheduler.scheduleSyncRepeatingTask(this, AFK::task, 200L, 1200L);
         if (isSparkExist) {
+            Log.info("Spark detected, enable TPS Keeper.");
             bukkitScheduler.scheduleSyncRepeatingTask(this, TPSKeeper::task, 1200L, 1200L);
         }
 
