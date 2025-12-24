@@ -19,9 +19,6 @@ public final class EventBroadcastListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        if (Vanished.isVanished(player)) {
-            return;
-        }
 
         String addressString = Objects.requireNonNull(player.getAddress()).getAddress().getHostAddress();
         InetSocketAddress haProxyAddress = player.getHAProxyAddress();
