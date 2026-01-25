@@ -1,95 +1,18 @@
 package cc.akashic.insight;
 
 import cc.akashic.insight.utils.ListNameEditor;
-import cc.akashic.insight.utils.Vanished;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
-import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.purpurmc.purpur.event.PlayerAFKEvent;
 
-import java.util.Collection;
 import java.util.HashSet;
 
 public final class AFK {
     static final HashSet<Player> AFKPlayerSet = new HashSet<>();
-    static final HashSet<Player> activePlayerSet = new HashSet<>();
-
-    /**
-     * Set a player's state to active.
-     * Remove him from AFK if he was in.
-     *
-     * @param player player
-     */
-    private static void setPlayerStateToActive(Player player) {
-        if (!activePlayerSet.contains(player)) {
-            activePlayerSet.add(player);
-
-            if (AFKPlayerSet.contains(player)) {
-                AFKPlayerSet.remove(player);
-                ListNameEditor.setPlayerListNameAFKPrefix(player, "");
-                player.setSleepingIgnored(false);
-            }
-        }
-    }
-
-    /**
-     * Set a player's state to active. Send a message to everyone.
-     * Remove him from AFK if he was in.
-     *
-     * @param player player
-     */
-    private static void setPlayerStateToActive(Player player, TextComponent msg) {
-        if (!activePlayerSet.contains(player)) {
-            activePlayerSet.add(player);
-
-            if (AFKPlayerSet.contains(player)) {
-                AFKPlayerSet.remove(player);
-                ListNameEditor.setPlayerListNameAFKPrefix(player, "");
-                player.setSleepingIgnored(false);
-
-//                Bukkit.broadcast(msg);
-            }
-        }
-    }
-
-    /**
-     * Repeatedly run this task. The period is the AFK time.
-     */
-    public static void task() {
-        Collection<? extends Player> players = Bukkit.getOnlinePlayers();
-        for (Player player : players) {
-            if (Vanished.isVanished(player)) {
-                continue;
-            }
-            String playerName = player.getName();
-
-            if (!activePlayerSet.contains(player) && !AFKPlayerSet.contains(player)) {
-                AFKPlayerSet.add(player);
-                ListNameEditor.setPlayerListNameAFKPrefix(player, "[AFK]");
-                player.setSleepingIgnored(true);
-
-//                Bukkit.broadcast(Component.text(playerName + " is away from keyboard!", NamedTextColor.YELLOW));
-            }
-        }
-
-        for (Player player : AFKPlayerSet) {
-            if (!player.isOnline()) {
-                AFKPlayerSet.remove(player);
-
-                Log.info("Remove offline player " + player.getName() + " from AFK.");
-            }
-        }
-
-        activePlayerSet.clear();
-    }
 
     public static boolean isPlayerAFK(Player player) {
         return AFKPlayerSet.contains(player);
@@ -98,23 +21,30 @@ public final class AFK {
     public static final class EventListener implements Listener {
         @EventHandler(priority = EventPriority.LOWEST)
         public void onPlayerJoin(PlayerJoinEvent event) {
-            event.getPlayer().setSleepingIgnored(false);
-            setPlayerStateToActive(event.getPlayer());
+            Player player = event.getPlayer();
+            if (AFKPlayerSet.remove(player)) {
+                ListNameEditor.setPlayerListNameAFKPrefix(player, "");
+            }
         }
 
         @EventHandler(priority = EventPriority.LOWEST)
         public void onPlayerQuit(PlayerQuitEvent event) {
-            setPlayerStateToActive(event.getPlayer());
+            AFKPlayerSet.remove(event.getPlayer());
         }
 
         @EventHandler(priority = EventPriority.LOWEST)
-        public void onPlayerMove(PlayerMoveEvent event) {
-            setPlayerStateToActive(event.getPlayer(), Component.text(event.getPlayer().getName() + " is back now!", NamedTextColor.YELLOW));
-        }
+        public void onPlayerAFK(PlayerAFKEvent event) {
+            Player player = event.getPlayer();
 
-        @EventHandler(priority = EventPriority.LOWEST)
-        public void onPlayerInteract(PlayerInteractEvent event) {
-            setPlayerStateToActive(event.getPlayer(), Component.text(event.getPlayer().getName() + " is back now!", NamedTextColor.YELLOW));
+            if (event.isGoingAfk()) {
+                if (AFKPlayerSet.add(player)) {
+                    ListNameEditor.setPlayerListNameAFKPrefix(player, "[AFK]");
+                }
+            } else {
+                if (AFKPlayerSet.remove(player)) {
+                    ListNameEditor.setPlayerListNameAFKPrefix(player, "");
+                }
+            }
         }
     }
 }
