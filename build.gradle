@@ -1,5 +1,5 @@
 plugins {
-    id 'io.github.goooler.shadow' version '8.1.7'
+    id 'io.github.goooler.shadow' version '8.1.8'
     id 'java'
 }
 
@@ -22,9 +22,9 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'io.papermc.paper:paper-api:1.21.10-R0.1-SNAPSHOT'
+    compileOnly 'io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT'
     compileOnly 'me.lucko:spark-api:0.1-SNAPSHOT'
-    implementation 'org.bstats:bstats-bukkit:3.0.2'
+    implementation 'org.bstats:bstats-bukkit:3.1.0'
 }
 
 jar {
