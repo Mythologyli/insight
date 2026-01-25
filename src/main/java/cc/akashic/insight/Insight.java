@@ -34,27 +34,16 @@ public final class Insight extends JavaPlugin {
             saveResource("slogan.yml", false);
         }
 
-        File tpsFile = new File(dataFolder + "/tps.txt");
-        if (!tpsFile.exists()) {
-            saveResource("tps.txt", false);
-        }
-
         File lineFile = new File(dataFolder + "/line.yml");
         if (!lineFile.exists()) {
             saveResource("line.yml", false);
         }
-
-        boolean isSparkExist = TPSKeeper.getSpark();
-        TPSKeeper.getWorld();
-        TPSKeeper.saveOriginMonsterSpawnLimit();
-        TPSKeeper.disableTPSKeepMode();
 
         Slogan.loadSlogan();
 
         Objects.requireNonNull(this.getCommand("insight")).setExecutor(new CommandInsight());
         Objects.requireNonNull(this.getCommand("xray")).setExecutor(new CommandXray());
         Objects.requireNonNull(this.getCommand("shareitems")).setExecutor(new CommandShareItems());
-        Objects.requireNonNull(this.getCommand("tpskeep")).setExecutor(new CommandTPSKeep());
         Objects.requireNonNull(this.getCommand("slogan")).setExecutor(new CommandSlogan());
         Objects.requireNonNull(this.getCommand("leader")).setExecutor(new CommandLeader());
         Objects.requireNonNull(this.getCommand("keepspectator")).setExecutor(new CommandKeepSpectator());
@@ -65,18 +54,11 @@ public final class Insight extends JavaPlugin {
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new EventBroadcastListener(), this);
         pluginManager.registerEvents(new AFK.EventListener(), this);
-        pluginManager.registerEvents(new TPSKeeper.EventListener(), this);
         pluginManager.registerEvents(new Slogan.EventListener(), this);
         pluginManager.registerEvents(new JoinPrivateMessenger.EventListener(), this);
         pluginManager.registerEvents(new LeaderBoard.EventListener(), this);
         pluginManager.registerEvents(new ItemsViewer.EventListener(), this);
         pluginManager.registerEvents(new DisableEnd.EventListener(), this);
-
-        BukkitScheduler bukkitScheduler = Bukkit.getScheduler();
-        if (isSparkExist) {
-            Log.info("Spark detected, enable TPS Keeper.");
-            bukkitScheduler.scheduleSyncRepeatingTask(this, TPSKeeper::task, 1200L, 1200L);
-        }
 
         int pluginId = 13612;
         Metrics metrics = new Metrics(this, pluginId);

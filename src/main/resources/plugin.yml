@@ -37,13 +37,6 @@ commands:
       /<command> hand
     permission: insight.shareitems
 
-  tpskeep:
-    description: Command of Insight TPSKeep.
-    usage: |
-      /<command> true
-      /<command> false
-    permission: insight.tpskeep
-
   slogan:
     description: Command of Insight Slogan.
     usage: |
