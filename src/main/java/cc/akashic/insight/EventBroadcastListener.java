@@ -1,6 +1,7 @@
 package cc.akashic.insight;
 
 import cc.akashic.insight.utils.Vanished;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TranslatableComponent;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Location;
@@ -42,15 +43,16 @@ public final class EventBroadcastListener implements Listener {
 
         StringBuilder componentString = new StringBuilder();
 
-        if (deathMessage instanceof TranslatableComponent) {
-            var args = ((TranslatableComponent) deathMessage).args();
-
-            componentString.append("K,").append(((TranslatableComponent) deathMessage).key());
-            for (var arg : args) {
-                if (arg instanceof TranslatableComponent) {
-                    componentString.append(";K,").append(((TranslatableComponent) arg).key());
+        if (deathMessage instanceof TranslatableComponent translatableDeathMessage) {
+            componentString.append("K,").append(translatableDeathMessage.key());
+            for (var argument : translatableDeathMessage.arguments()) {
+                var value = argument.value();
+                if (value instanceof TranslatableComponent translatableArgument) {
+                    componentString.append(";K,").append(translatableArgument.key());
+                } else if (value instanceof Component component) {
+                    componentString.append(";T,").append(PlainTextComponentSerializer.plainText().serialize(component));
                 } else {
-                    componentString.append(";T,").append(PlainTextComponentSerializer.plainText().serialize(arg));
+                    componentString.append(";T,").append(value);
                 }
             }
         } else {
@@ -73,12 +75,10 @@ public final class EventBroadcastListener implements Listener {
         var advancementDisplay = event.getAdvancement().displayName();
         String advancementString = "";
 
-        if (advancementDisplay instanceof TranslatableComponent) {
-            var args = ((TranslatableComponent) advancementDisplay).args();
-
-            for (var arg : args) {
-                if (arg instanceof TranslatableComponent) {
-                    advancementString = ((TranslatableComponent) arg).key();
+        if (advancementDisplay instanceof TranslatableComponent translatableAdvancementDisplay) {
+            for (var argument : translatableAdvancementDisplay.arguments()) {
+                if (argument.value() instanceof TranslatableComponent translatableArgument) {
+                    advancementString = translatableArgument.key();
                 }
             }
         }
